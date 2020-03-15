@@ -1,0 +1,156 @@
+@charset "ISO-8859-1";
+
+*
+
+{
+	margin: 0;
+	padding: 0;
+	
+}
+
+.row{
+	background-image:url(images/banner.jpg);
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	
+}
+.main-nav{
+	float: right;
+	list-style: none;
+	margin-top: 30px;
+	margin-left: 800px;
+	
+}
+.main-nav li{
+	display: inline-block;
+}
+.main-nav li a{
+	color: white;
+	text-decoration: none;
+	padding: 5px 30px;
+	font-family: "Roboto", sans-serif; 
+}
+.main-nav li.active a{
+	border: 1px solid white;
+}
+.main-nav li a:hover {
+	border: 1px solid white;
+}
+.header2 {
+	position: absolute;
+	width: 1300px;
+	margin: left;
+	margin-top: 300px;
+	
+}
+h1{
+	color: white;
+	font-size: 50px;
+	text-align: center;
+	margin-top: 275px;
+	
+}
+.button{
+	margin-top: 30px;
+	margin-left:500px; 
+}
+.btn1{
+	 border: 1px solid white;
+	 padding: 10px 100px;
+	 color: white;
+	 text-decoration: none;
+	 margin-right: 5px;
+	 font-size: 13px;
+	
+}
+.btn1:hover{
+	 background-color: darkorange;
+}
+.fileUpload{
+  
+  float: left;
+  width: 20%;
+ 
+  
+  margin-top: 510px;
+  border: 3px solid #73AD21;
+ 
+	
+}
+.tetxtarea{
+	margin-top: 120px;
+	width: 50%;
+	float: left;
+	text-align: right;
+	
+	
+}
+.btnCode{
+	margin-top: 560px;
+	margin-left: 800px;
+}
+
+.headerSlecting{
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+}
+.btnslecting{
+	
+	background-color: blue;
+	
+	
+	
+	
+}
+.btnsize{
+	float: left;	
+	width: 49.5%;
+	text-align: right;
+	margin-bottom: 5px;
+	}
+.btnInheritance{
+	float: right;
+	width: 50%;
+	
+	margin-bottom: 5px;
+	
+}
+.btncControl{
+	float: left;
+	text-align: right;
+	width: 49.5%;
+	
+}
+.btnCoupling{
+	float: right;
+	width: 50%;
+	
+}
+.manu{
+	float: right;
+	list-style: none;
+	margin-top: 5px;
+	margin-left: 800px;
+	margin-bottom: 200px;
+	
+}
+.manu li{
+	display: inline-block;
+}
+.manu li a{
+	color: black;
+	text-decoration: none;
+	padding: 5px 30px;
+	font-family: "Roboto", sans-serif; 
+}
+.manu li.active a{
+	border: 1px solid black;
+}
+.manu li a:hover {
+	border: 1px solid black;
+}
+.manuDIV{
+	background-color: black;
+}
