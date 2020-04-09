@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 
 public class Coupling {
-
+	//charitha
 	String code;
 	
 	public void setCode(String code) {
