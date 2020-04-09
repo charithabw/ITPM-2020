@@ -9,6 +9,7 @@ import java.io.LineNumberReader;
 
 public class Coupling {
 	//charitha
+	//bandara
 	String code;
 	
 	public void setCode(String code) {
