@@ -295,7 +295,8 @@ public class Coupling {
       }
  public boolean checkRegularMethod(String statment) {
 		  
-	 	  boolean regular = true;
+	 	 
+	 	  boolean regular = false;
 	 	  String tStatment = statment.trim();
 		  String[] lines = code.split("\\r?\\n");
 		  String [] words = code.split(" ");
@@ -425,7 +426,191 @@ public class Coupling {
 	 
  }
  
-			  
+ public boolean isGlobleVariable(String statment) {
+	 
+	 String myStatement = statment;
+	 boolean variable = false;
+	 
+	 String[] lines = code.split("\\r?\\n");
+	 
+	 ArrayList<String> variableArray = new ArrayList<String>();
+	 
+	 
+	 for(String line : lines) {
+		 String tline = line.trim();
+		 
+		 if(getMethod(tline)!= null) {
+			 
+		 }
+		 else if((tline.contains("private") || tline.contains("public")) && (tline.contains("int") || tline.contains("String") 
+				 || tline.contains("char") || tline.contains("double") || tline.contains("Dimension"))) {
+			 	
+			 if(tline.contains("=")) {
+				 String[] vars = tline.split("=");
+				 for(String var : vars) {
+					 String[] myvar = var.split(" ");
+					 variableArray.add(myvar[2]);
+					 //System.out.println(myvar[2]);
+					 break;
+				 }
+			 }
+			 else if(tline.contains(",")) {
+				 String[] vars = tline.split(",");
+				 for(String var : vars) {
+					 String tvar = var.trim();
+					 if(tvar.contains("private") || tvar.contains("public")) {
+						 String[] myvar = tvar.split(" ");
+						 variableArray.add(myvar[2]);
+						 
+					 }
+					 else if(tline.contains(";")) {
+						 String[] myvar = tvar.split(";");
+						 variableArray.add(myvar[0]);
+						 break;
+					 }
+					 else {
+						 variableArray.add(tvar);
+					 }
+				 }
+				 //System.out.println(vars[1]);
+			 }
+			 else {
+				 //System.out.println(tline);
+				 String[] vars = tline.split(";");
+				 for(String var : vars) {
+					 String[] myvar = var.split(" ");
+					 variableArray.add(myvar[2]);
+					// System.out.println(myvar[2]);
+					 break;
+					 
+				 }
+			 }
+		 }
+	 }
+//	 for(int i = 0; i < variableArray.size(); i++) {
+//		 System.out.println(variableArray.get(i));
+//	 }
+	 
+	 for(int i =0 ; i < variableArray.size(); i++) {
+	 if(myStatement.contains(variableArray.get(i))) {
+	 
+		 if(getMethod(myStatement) != null){
+			 variable = false;
+						 
+		 }
+		 else {
+			 variable = true;
+			 continue;
+			 
+		 }
+	 }
+	
+	 }
+	 return variable;
+	 
+ }
+ 
+public int[] checkGloblevariable() {
+	
+	
+	
+ String[] lines = code.split("\\r?\\n");
+	 
+	 ArrayList<String> variableArray = new ArrayList<String>();
+	 
+	 
+	 for(String line : lines) {
+		 String tline = line.trim();
+		 
+		 if(getMethod(tline)!= null) {
+			 
+		 }
+		 else if((tline.contains("private") || tline.contains("public")) && (tline.contains("int") || tline.contains("String") 
+				 || tline.contains("char") || tline.contains("double") || tline.contains("Dimension"))) {
+			 	
+			 if(tline.contains("=")) {
+				 String[] vars = tline.split("=");
+				 for(String var : vars) {
+					 String[] myvar = var.split(" ");
+					 variableArray.add(myvar[2]);
+					 //System.out.println(myvar[2]);
+					 break;
+				 }
+			 }
+			 else if(tline.contains(",")) {
+				 String[] vars = tline.split(",");
+				 for(String var : vars) {
+					 String tvar = var.trim();
+					 if(tvar.contains("private") || tvar.contains("public")) {
+						 String[] myvar = tvar.split(" ");
+						 variableArray.add(myvar[2]);
+						 
+					 }
+					 else if(tline.contains(";")) {
+						 String[] myvar = tvar.split(";");
+						 variableArray.add(myvar[0]);
+						 break;
+					 }
+					 else {
+						 variableArray.add(tvar);
+					 }
+				 }
+				 //System.out.println(vars[1]);
+			 }
+			 else {
+				 //System.out.println(tline);
+				 String[] vars = tline.split(";");
+				 for(String var : vars) {
+					 String[] myvar = var.split(" ");
+					 variableArray.add(myvar[2]);
+					// System.out.println(myvar[2]);
+					 break;
+					 
+				 }
+			 }
+		 }
+	 }
+//	 for(int i = 0; i < variableArray.size(); i++) {
+//		 System.out.println(variableArray.get(i));
+//	 }
+	
+	
+	
+	
+	
+	
+	int[] score = new int[lines.length];
+	int s = 0;
+	score[s] = 0;
+	
+	for(String line : lines) {
+		String tline = line;
+		
+		if(isGlobleVariable(tline)) {
+			if(tline.contains("public") || tline.contains("private")) {
+				score[s] = 1;
+				s++;
+			}
+			else {
+			for(int i = 0; i < variableArray.size(); i++) {
+			if(tline.contains(variableArray.get(i))) {
+				score[s] = score[s] + 1;
+			}
+			}
+			s++;
+		}
+		}
+		else {
+			score[s] = 0;
+			s++;
+		}
+	}
+	return score;
+	
+}
+ 
+ 
+ 
 	  //ArrayList<String> xline = new ArrayList<String>();
 	  
 	  //System.out.println(twordArray.get(1));
@@ -524,6 +709,7 @@ public class Coupling {
 		 String[] lines = displayCode();
 		 int[] recursiveScores = checkRecursive(code);
 		 int[] regularScore = isRegular();
+		 int[] globleVariable = checkGloblevariable();
 		 
 		String output = "";
 		output = "<table border=\"1\">"
@@ -537,7 +723,8 @@ public class Coupling {
 			
 			output += "<tr><td>" + lines[i] + "</td>";
 			output += "<td>" + recursiveScores[i] + "</td>";
-			output += "<td>" + regularScore[i] + "</td></tr>";
+			output += "<td>" + regularScore[i] + "</td>";
+			output += "<td>" + globleVariable[i] + "</td></tr>";
 			i++;
 			j--;
 		}
