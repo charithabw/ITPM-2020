@@ -65,12 +65,13 @@ public class codeServlet extends HttpServlet {
 		if(button.equals("Coupling")) {
 			
 			Coupling couling = new Coupling();
-			
 			couling.setCode(code);
-			String[] codeLines = couling.displayCode();
-			int[] score = couling.isRecursive(code);
-			request.setAttribute("codelines", codeLines);
-			request.setAttribute("score", score);
+		String tb =	couling.getTable();
+//			String[] codeLines = couling.displayCode();
+//			int[] score = couling.isRecursive(code);
+//			request.setAttribute("codelines", codeLines);
+//			request.setAttribute("score", score);
+		request.setAttribute("tb", tb);
 			
 			request.getRequestDispatcher("coupling.jsp").forward(request, response);
 		}

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Out"%>
+<%@page import="com.javaClass.Coupling"%>
 <%@page import="java.io.PrintWriter"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,7 +13,7 @@
 	
 </head>
 <body>
-		<div class = "cplnTable">
+		<!--  <div class = "cplnTable">
 		
 		<table class = " table " border="2" style = "width: 75%; float: right; margin-top: 100px">
 			<tr style = "color: blue;">
@@ -60,10 +62,10 @@
 		
 		
 	 
-       
   
   	
-		</div>	
+		</div>	-->
+		 ${tb}
 		
 </body>
 </html>
