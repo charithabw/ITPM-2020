@@ -60,7 +60,7 @@ public class codeServlet extends HttpServlet {
 			
 			
 			
-			request.getRequestDispatcher("control_structures.jsp").forward(request, response);
+			request.getRequestDispatcher("controll_structures.jsp").forward(request, response);
 		}
 		if(button.equals("Coupling")) {
 			
