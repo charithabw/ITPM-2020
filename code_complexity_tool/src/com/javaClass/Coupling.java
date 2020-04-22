@@ -162,7 +162,7 @@ public class Coupling {
 		  //System.out.println(stackback.size());
 		  for(int i = 0; i < backLength; i++) {
 			  	reverseBackArray.add(stackback.pop());
-			  	//System.out.println(reverseArray.get(i));
+			  //	System.out.println(reverseBackArray.get(i));
 		 }
 		  for(int i = 0; i < reverseBackArray.size();i++) {
 			  stackback.push(reverseBackArray.get(i));
