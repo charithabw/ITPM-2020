@@ -38,7 +38,15 @@ public class codeServlet extends HttpServlet {
 		String code =  request.getParameter("code");
 		String button = request.getParameter("button");
 		
-		if(button.equals("SizeVariable")) {
+		if(button.equals("Size")) {
+			
+			SizeVariable sizeVariable = new SizeVariable();
+			
+			
+			
+			request.getRequestDispatcher("size.jsp").forward(request, response);
+		}
+		if(button.equals("Method")) {
 			
 			SizeVariable sizeVariable = new SizeVariable();
 			
@@ -46,6 +54,15 @@ public class codeServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("size_variable_method.jsp").forward(request, response);
 		}
+		if(button.equals("Variable")) {
+	
+			SizeVariable sizeVariable = new SizeVariable();
+	
+	
+	
+			request.getRequestDispatcher("variable.jsp").forward(request, response);
+		}
+		
 		if(button.equals("Inheritance")) {
 			
 			Inheritance inheritance = new Inheritance();
