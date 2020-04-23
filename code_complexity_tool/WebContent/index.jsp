@@ -46,22 +46,26 @@
 			<form action= "codeServlet" >
 			<textarea  name = "code" rows = "15" cols="100" placeholder="COPPY YOUR CIDE HERE"></textarea>
 			
-			<div class = "btnslecting" style = "width: 100% ">
-			<div class ="btnsize" >
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "SizeVariable" style = "height: 100px; width: 200px">
-						
-			</div>		
-			<div class = "btnInheritance">
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "Inheritance"  style = "height: 100px; width: 200px">
-			</div>			
-			<div class = "btncControl">	
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "ControlStructure" style = "height: 100px; width: 200px">
-			</div>			
-			<div class = "btnCoupling" ID = "bottom">
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "Coupling" style = "height: 100px; width: 200px">
 			
-			</div>			
+			<div class ="btnsize" style  = "width : 50%; float: left;">
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Size" style = "height: 50px; width: 100px">
+						
 			</div>
+			
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Method" style = "height: 50px; width: 100px; float: left;">
+			
+			
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Variable" style = "height: 50px; width: 100px; float: left;">
+				
+			
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Inheritance"  style = "height: 100px; width: 200px; float: left;">
+			
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "ControlStructure" style = "height: 100px; width: 200px ; float: left;'">
+			<div id = bottom>
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Coupling" style = "height: 100px; width: 200px ; float: left;">
+			</div>
+			
+			
 			
 			
 			</form>

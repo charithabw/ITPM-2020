@@ -41,41 +41,6 @@ public class Coupling {
 	}
 	
 	
-//	public String[] getCount() {
-//		// TODO Auto-generated method stub
-//		File file = new File("F://charitha//test.txt");
-//		if(file.exists()) {
-//			try {
-//				FileReader fr = new FileReader(file);
-//				LineNumberReader lnr = new LineNumberReader(fr);
-//				int lineNOCount = 0;
-//				String[]  code;
-//				try {
-//					BufferedReader br = new BufferedReader(fr);
-//					String line;
-//					code = new String[20];
-//					while((line = br.readLine()) != null) {
-//						
-//						lineNOCount ++;
-//						code[lineNOCount] = (lineNOCount +" : "+line);
-//						
-//						
-//					}
-//					return code;
-//					//System.out.println("LINE: " +lineNOCount);
-//					//return lineNOCount;
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		String[] test = {"s", "g"};
-//		return test;
-//	}
 //	
 	
 	
@@ -119,6 +84,7 @@ public class Coupling {
 			Stack<Integer> stackback = new Stack<Integer>();
 			ArrayList<String> reverseMethodArray = new ArrayList<String>();
 			String method ;  
+			ArrayList<String> cusCodeArray = new ArrayList<String>();
 			
 		 for(String line: lines) {
 				  if(getMethod(line) != null) {
@@ -156,6 +122,8 @@ public class Coupling {
 			  }
 		  }
 		  
+		
+		  
 		  
 		  ArrayList<Integer> reverseBackArray = new ArrayList<Integer>();
 		  int backLength = stackback.size();
@@ -184,57 +152,97 @@ public class Coupling {
 		
 			  for(int i =0; i < stackback.size(); i++) {
 			  cusCode = code.substring(peekValue,stackback.peek()-1).trim();
+			  cusCodeArray.add(cusCode);
 			  //System.out.println(cusCode.length());
 //			  if(cusCode.contains(".*[a-z].*")) {
 //				  System.out.println("empty");
 //			  }
 //			  else {
 			  peekValue = stackback.pop();
-			  
-//			  System.out.println(cusCode);
+			  }
+//			  System.out.println(cusCode.trim());
 //			  System.out.println(">>>>>>>>>>>>>");
+			  }
+			 //System.out.println(lines.length);
+		  } 
 			  
-	  
-			 String [] cusLines = cusCode.split("\\r?\\n");
-			 for(String cusLine : cusLines) {
-				
-			
-					
-				
-					
-					 
-					  if(!methodsStack.isEmpty()) {
-						  if(getMethod(cusLine) != null) {
-								 method = getMethod(cusLine);
-								 //System.out.println(method);
-								 score[s] = 0;
-								 s++;
-							 }
-						  else  if(cusLine.contains(methodsStack.peek())) {
-							 score[s] = 1;
-							 s++;
-								 }
-						  else {
+			  for(int i =0 ; i < cusCodeArray.size();i++) {
+				  String[] cusCodeLines = cusCodeArray.get(i).split("\\r?\\n");
+				  for(String cusCodeLine : cusCodeLines) {
+					  if(getMethod(cusCodeLine) == null) {
+						  if(!methodsStack.isEmpty()) {
+							  //System.out.println(methodsStack.peek());
+						  if(cusCodeLine.contains(methodsStack.peek())) {
+						      score[s] = 1;
+						      s++;
+						      //System.out.println(cusCodeLine);
 							  
+						  }
+						  else {
 							  score[s] = 0;
 							  s++;
-						  }
-					 }
-					
-				
+						  }}
 			  
-			 
-			 } 
-			 //System.out.println(">>>>>>>>>>");
-			 if(!methodsStack.isEmpty()) {
-			 methodsStack.pop();
-			 }
-		  }  
-		 
-		  }
-		  }	
+			  }else {
+				  score[s] = 0;
+				  s++;
+			  }
+			  
+			  }
+				  if(!methodsStack.isEmpty()) {
+				  methodsStack.pop();
+			  } }
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+//			  String [] cusLines = cusCode.split("\\r?\\n");
+//			// System.out.println(cusLines.length);
+//			 for(String cusLine : cusLines) {
+//				
+//			//System.out.println(cusLine);
+//					 
+//				
+//					 
+//						  if(getMethod(cusLine) != null) {
+//								 method = getMethod(cusLine);
+//								 //System.out.println(method);
+//								 score[s] = 0;
+//								 s++;
+//							 }
+//						  else if(!methodsStack.isEmpty()) {
+//							     if(cusLine.contains(methodsStack.peek())) {
+//								 methodsStack.pop();
+//								 score[s] = 1;
+//								 s++;
+//								 }
+//							     
+//						  }
+//						  else {
+//							  
+//							  score[s] = 0;
+//							  s++;
+//						  }
+//					 }
+//					
+//				
+//			  
+//			 
+//			 } 
+//			 //System.out.println(">>>>>>>>>>");
+//			 }
+//		  }  
+//		 
+//	  
+//		  	
+		  
 			return score;
-			
+//			
 		}
 	 
 	
@@ -705,7 +713,7 @@ public int[] checkGloblevariable() {
 //		 String d = getCode();
 //		 System.out.println(">>>>>>>>>>>"+d);
 //		String[] lines = d.split("\\r?\\n");	
-		 
+		 String test = "";
 		 String[] lines = displayCode();
 		 int[] recursiveScores = checkRecursive(code);
 		 int[] regularScore = isRegular();
@@ -724,7 +732,18 @@ public int[] checkGloblevariable() {
 			output += "<tr><td>" + lines[i] + "</td>";
 			output += "<td>" + recursiveScores[i] + "</td>";
 			output += "<td>" + regularScore[i] + "</td>";
-			output += "<td>" + globleVariable[i] + "</td></tr>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + globleVariable[i] + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + (recursiveScores[i] + regularScore[i] + globleVariable[i]) + "</td> </tr>";
 			i++;
 			j--;
 		}
