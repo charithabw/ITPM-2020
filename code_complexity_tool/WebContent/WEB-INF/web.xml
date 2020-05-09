@@ -11,6 +11,79 @@
   		<url-pattern>/codeServlet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  		<servlet-name>FileUploadServlet</servlet-name>
+  		<servlet-class>com.servlet.FileUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>FileUploadServlet</servlet-name>
+  		<url-pattern>/FileUploadServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  		<servlet-name>FileSelectServlet</servlet-name>
+  		<servlet-class>com.servlet.FileSelectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>FileSelectServlet</servlet-name>
+  		<url-pattern>/FileSelectServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  		<servlet-name>WeightCouplingServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightCouplingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightCouplingServlet</servlet-name>
+  		<url-pattern>/WeightCouplingServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  		<servlet-name>WeightControlStructureServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightControlStructureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightControlStructureServlet</servlet-name>
+  		<url-pattern>/WeightControlStructureServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  		<servlet-name>WeightInheirtanceServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightInheirtanceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightInheirtanceServlet</servlet-name>
+  		<url-pattern>/WeightInheirtanceServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  		<servlet-name>WeightMethodsServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightMethodsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightMethodsServlet</servlet-name>
+  		<url-pattern>/WeightMethodsServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+  		<servlet-name>WeightSizeServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightSizeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightSizeServlet</servlet-name>
+  		<url-pattern>/WeightSizeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  		<servlet-name>WeightVariableServlet</servlet-name>
+  		<servlet-class>com.weightServlet.WeightVariableServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>WeightVariableServlet</servlet-name>
+  		<url-pattern>/WeightVariableServlet</url-pattern>
+  </servlet-mapping>
+  
   <display-name>code_complexity_tool</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
