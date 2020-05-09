@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>size,variable & method</title>
+<title>Method</title>
 </head>
 <body>
 	 ${method}
