@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.javaClass.ControllStructure;
 import com.javaClass.Coupling;
 import com.javaClass.Inheritance;
+import com.javaClass.Size;
 import com.javaClass.SizeVariable;
+import com.javaClass.variable;
 
 
 /**
@@ -40,26 +42,30 @@ public class codeServlet extends HttpServlet {
 		
 		if(button.equals("Size")) {
 			
-			SizeVariable sizeVariable = new SizeVariable();
+			Size size = new Size();
+			size.setCode(code);
+			String tb = size.getTable();
 			
-			
-			
+			request.setAttribute("size", tb);
 			request.getRequestDispatcher("size.jsp").forward(request, response);
 		}
 		if(button.equals("Method")) {
 			
 			SizeVariable sizeVariable = new SizeVariable();
-			
-			
-			
+			sizeVariable.setCode(code);
+			String tb =	sizeVariable.getTable();
+
+			request.setAttribute("method", tb);
 			request.getRequestDispatcher("size_variable_method.jsp").forward(request, response);
-		}
+			}
+			
 		if(button.equals("Variable")) {
 	
-			SizeVariable sizeVariable = new SizeVariable();
-	
-	
-	
+			variable Variable = new variable();
+			Variable.setCode(code);
+			String tb = Variable.getTable();
+			
+			request.setAttribute("variable", tb);
 			request.getRequestDispatcher("variable.jsp").forward(request, response);
 		}
 		

@@ -3,6 +3,7 @@ package com.javaClass;
 public class SizeVariable {
 	
 	String code;
+	String keywrd[] = { "int" , "byte" , "short" , "long" , "float"  };
 	public void setCode(String code) {
 		this.code = code;
 		}
@@ -106,25 +107,73 @@ public class SizeVariable {
 		
 	}
 	*/
-	
+	public int[] getKeyWrds() {
+		//String newStr = statement;
+		// String method = null;
+		
+		String[] lines = code.split("\\r?\\n");
+		int[] score = new int[lines.length];
+		int j = 0;
+		score[j]=0;
+
+		for (String line : lines) {
+
+			if (line.contains("int") 
+					|| line.contains("byte") 
+					||line.contains("short")
+					|| line.contains("long")
+					|| line.contains("float")) {
+				
+				String[] words = line.split(" ");
+
+				for (String word : words) {
+					for (int i = 0; i < keywrd.length; i++) {
+						if (keywrd[i] .equals(word))  {
+							//System.out.println(word);
+							score[j] = score[j] + 1;
+							break;
+						} 
+
+					} 
+				
+				}
+				j++;
+
+			} else {
+				score[j] = 0;
+				j++;
+			}
+		}
+
+		 return score;
+
+	}
+
+	  
+
 	
 	public String getTable() {
 		String[] lines = displayCode();
-		int[] method = ismethod();
+		int[] Ncdtp = ismethod();
+		int[] Wmrt = getKeyWrds();
 		//int[] primit = isPrimitive();
 		String output = "";
 		
 		output =  "<table border=\"1\">"
 				+ "<tr><th> Code Lines </th>"
 				+"<th>Wmrt</th>"
-				+ "<th>Npdtp</th"
+				+ "<th>Npdtp</th>"
 				+"<th>Ncdtp</th>"
 				+"<th>Cm</th></tr>";
 		int i = 0;
 		int j = lines.length;
+		int blank = 0;
 		while(j >0) {
 			output += "<tr><td>" +lines[i]+"</td>";
-			output += "<td>"+method[i]+"</td></tr>";
+			output +="<td>" +Wmrt[i]+ "</td>"; 
+			output +="<td>" +blank+ "</td>"; 
+			output += "<td>"+Ncdtp[i]+"</td></tr>";
+			//output += "<td>" + (Wmrt[i] + (     )    )    +
 			
 			i++;
 			j--;
