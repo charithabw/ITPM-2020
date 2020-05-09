@@ -1,4 +1,12 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
+<%@page import="com.javaClass.Coupling"%>
 <html>
 <head>
 
@@ -41,48 +49,57 @@
 		</header>
 		
 		
-		<div class = "textarea" style="margin-top: 90px; margin-left: 10px; width: 90%; text-align: left ;">
-		
-			<form action= "codeServlet" >
-			<textarea  name = "code" rows = "15" cols="100" placeholder="COPPY YOUR CIDE HERE"></textarea>
-			
-			
-			<div class ="btnsize" style  = "width : 50%; float: left;">
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "Size" style = "height: 50px; width: 100px">
-						
+		<div>
+			<form action= "codeServlet" method  = POST>
+		<div class = "textarea" style="margin-top: 90px; margin-left: 50px; width: 90%; text-align: left ;">
+			<textarea  name = "code" rows = "15" cols="100" placeholder="COPPY YOUR CIDE HERE"    >${tb}</textarea>
 			</div>
 			
+			<div style = " margin-left: 50px">
+			<div class="btn-group">
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Size" style = "height: 50px; width: 100px">
+						</div>
+			
+			<div class="btn-group">
 			<input class = "btn btn-primary" type = "submit" name = "button" value = "Method" style = "height: 50px; width: 100px; float: left;">
-			
-			
+			</div>
+			<div class="btn-group">
 			<input class = "btn btn-primary" type = "submit" name = "button" value = "Variable" style = "height: 50px; width: 100px; float: left;">
-				
-			
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "Inheritance"  style = "height: 100px; width: 200px; float: left;">
-			
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "ControlStructure" style = "height: 100px; width: 200px ; float: left;'">
-			<div id = bottom>
-			<input class = "btn btn-primary" type = "submit" name = "button" value = "Coupling" style = "height: 100px; width: 200px ; float: left;">
+			</div>	
+			<div class="btn-group">
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "Inheritance"  style = "height: 50px; width: 100px; float: left;">
+			</div>
+			<div class="btn-group">
+			<input class = "btn btn-primary" type = "submit" name = "button" value = "ControlStructure" style = "height: 50px; width: 100px ; float: left;'">
+			</div>
+			<div class="btn-group">
+			<input class = "btn btn-primary"  type = "submit" name = "button" value = "Coupling" style = "height: 50px; width: 100px ; float: left;">
+			</div>
+			<div class="btn-group">
+			<input class = "btn btn-primary"  type = "submit" name = "button" value = "All-Factors" style = "height: 50px; width: 100px ; float: left;">
+			</div>
 			</div>
 			
 			
 			
 			
 			</form>
-			
-			</div>
+		 	</div>
+		<div class = "fileUpload" style="margin-top: 30px; margin-left: 800px;">
 		
-		<!--  
-		<div class = "fileUpload">
-					<form action="" name ="" method="">
-						<input type ="File" accept="">
-					
+      
+		<h5>upload A ZIP file or normal fileS here...</h5>
+					<form action= "FileUploadServlet" method="post" enctype="multipart/form-data" id = bottom>
+						<input type ="file" name ="file" multiple/>
+						<input type = "submit" value = "file-upload"/>
 					</form>
+					
+					
 		</div>
-		<div class = "btnCode" id = "bottom">
-			<button class = "btn btn-primary" type = "submit" onclick = "window.location.href = 'http://localhost:8090/testweb/seletingPage.html';">SUBMIT</button>
-		</div>
-		-->
+			
+		  
+		
+		
 	
 </body>
 </html>
