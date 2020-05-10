@@ -3,11 +3,27 @@ package com.javaClass;
 import java.util.ArrayList;
 
 public class variable {
+	
+	int WvsG;
+	int WvsL;
+	int Wpdtv;
+	int Wcdtv;
+	
 	String code;
 	String operator[] = { "int" , "byte" , "short" , "long" , "float"  };
 	public void setCode(String code) {
 		this.code = code;
 		}
+
+	public void weights(int WvsG, int WvsL, int Wpdtv, int Wcdtv) {
+		// TODO Auto-generated method stub
+		this.WvsG = WvsG;
+		this.WvsL = WvsL;
+		this.Wpdtv = Wpdtv;
+		this.Wcdtv = Wcdtv;
+		
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -392,5 +408,4 @@ public class variable {
 		return output;
 		
 	}
-
 }

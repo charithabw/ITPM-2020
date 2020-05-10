@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.javaClass.Size;
+import com.javaClass.SizeVariable;
+import com.servlet.codeServlet;
+
 /**
  * Servlet implementation class WeightMethodsServlet
  */
@@ -35,6 +39,28 @@ public class WeightMethodsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+String button = request.getParameter("submit");
+		
+		
+		String WmrtP =  request.getParameter("WmrtP");
+		String WmrtC =  request.getParameter("WmrtC");
+		String WmrtV =  request.getParameter("WmrtV");
+		String Wpdtp =  request.getParameter("Wpdtp");
+		String Wcdtp =  request.getParameter("Wcdtp");
+		
+		
+		if(button.equals("save")) {
+		SizeVariable m = new SizeVariable();
+		m.weights(Integer.parseInt(WmrtP), Integer.parseInt(WmrtC), Integer.parseInt(WmrtV), Integer.parseInt(Wpdtp), Integer.parseInt(Wcdtp));
+		codeServlet cs = new codeServlet();
+		String code = cs.returnCode();
+		
+		m.setCode(code);
+		String tb =	m.getTable();
+		request.setAttribute("tb", tb);
+		request.getRequestDispatcher("size_variable_method.jsp").forward(request, response);
+		}
 		doGet(request, response);
 	}
 

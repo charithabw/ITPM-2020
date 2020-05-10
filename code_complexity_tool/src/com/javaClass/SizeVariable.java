@@ -2,6 +2,13 @@ package com.javaClass;
 
 public class SizeVariable {
 	
+	int WmrtP;
+	int WmrtC;
+	int WmrtV;
+	int Wpdtp;
+	int Wcdtp;
+	
+	
 	String code;
 	String keywrd[] = { "int" , "byte" , "short" , "long" , "float"  };
 	public void setCode(String code) {
@@ -20,7 +27,16 @@ public class SizeVariable {
 		}
 		return lines;
 	}
-	
+
+	public void weights(int WmrtP, int WmrtC, int WmrtV, int Wpdtp, int Wcdtp) {
+		// TODO Auto-generated method stub
+		this.WmrtP = WmrtP;
+		this.WmrtC = WmrtC;
+		this.WmrtV = WmrtV;
+		this.Wpdtp = Wpdtp;
+		this.Wcdtp = Wcdtp;
+			
+	}
 	
 	public String getMethod(String statement) {
 		String newStr = statement;
