@@ -6,6 +6,12 @@ import javax.sound.sampled.Line;
 
 public class Size {
 
+	int Wkw;
+	int Wid;
+	int Wop;
+	int Wnv;
+	int Wsl;
+	
 	String code;
 	String keywrd[] = { "public","private","void",  "printf", "println", "cout", "cin", "if", "for",
 			"while", "do", "switch", "case" };
@@ -32,6 +38,17 @@ public class Size {
 		return lines;
 	}
 
+	public void weights(int Wkw, int Wid, int Wop, int Wnv, int Wsl) {
+		// TODO Auto-generated method stub
+		this.Wkw = Wkw;
+		this.Wid = Wid;
+		this.Wop = Wop;
+		this.Wnv = Wnv;
+		this.Wsl = Wsl;
+		
+	}
+
+	
 	public int[] getKeyWrds() {
 		//String newStr = statement;
 		// String method = null;
@@ -52,7 +69,7 @@ public class Size {
 					for (int i = 0; i < keywrd.length; i++) {
 						if (keywrd[i] .equals(word))  {
 							//System.out.println(word);
-							score[j] = score[j] + 1;
+							score[j] = score[j] + 1 * Wkw;
 							break;
 						} 
 
@@ -89,7 +106,7 @@ public class Size {
 					for (int i = 0; i < indentifiers.length; i++) {
 						if (indentifiers[i] .equals(word))  {
 							System.out.println(word);
-							score[j] = score[j] + 1;
+							score[j] = score[j] + 1 * Wid;
 							break;
 						} 
 
@@ -136,7 +153,7 @@ public class Size {
 		for(String line : lines) {
 			String tline = line.trim();
 			if(getMethod(tline) != null){
-				score[s] = 1;
+				score[s] = 1 * Wid;
 				s++;
 			}
 			else
@@ -188,7 +205,7 @@ public class Size {
 					for (int i = 0; i < operator.length; i++) {
 						if (operator[i] .equals(word))  {
 							//System.out.println(word);
-							score[j] = score[j] + 1;
+							score[j] = score[j] + 1 * Wop;
 							break;
 						} 
 
@@ -237,7 +254,7 @@ public class Size {
 		for(String line : lines) {
 			String tline = line.trim();
 			if(getMethod(tline) != null){
-				score[s] = 1;
+				score[s] = 1 * Wsl;
 				s++;
 			}
 			else
@@ -282,7 +299,7 @@ public class Size {
 					for (int i = 0; i < numb.length; i++) {
 						if (numb[i] .equals(word))  {
 							//System.out.println(word);
-							score[j] = score[j] + 1;
+							score[j] = score[j] + 1 * Wnv;
 							break;
 						} 
 
@@ -336,5 +353,7 @@ public class Size {
 		return output;
 
 	}
+
+	
 
 }
