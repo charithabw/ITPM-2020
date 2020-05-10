@@ -90,8 +90,8 @@
       
 		<h5>upload A ZIP file or normal fileS here...</h5>
 					<form action= "FileUploadServlet" method="post" enctype="multipart/form-data" id = bottom>
-						<input type ="file" name ="file" multiple/>
-						<input type = "submit" value = "file-upload"/>
+						<input class="btn btn-link" type ="file" name ="file" multiple/>
+						<input class="btn btn-secondary"  type = "submit" value = "file-upload"/>
 					</form>
 					
 					

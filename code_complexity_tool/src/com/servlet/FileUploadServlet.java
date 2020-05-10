@@ -40,12 +40,22 @@ public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static ArrayList<String> filePaths = new ArrayList<String>();
 	static ArrayList<String> fileNameArray = new ArrayList<String>();
-	static String derectory = "src\\uploadFile\\";   
+	static String derectory = "uploadFileFOR_Code_Complecxity_ITPM_WE_11\\"; 
+	File DestinatioDerc  = new File("uploadFileFOR_Code_Complecxity_ITPM_WE_11");
    
     public FileUploadServlet() {
         super(); // TODO Auto-generated constructor stub
+        
     }
-
+    public void createDerectory() {
+    	if (!DestinatioDerc.exists()) {
+            if (DestinatioDerc.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
+        }
+    }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -100,7 +110,7 @@ public class FileUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//FileItem file = null;
-		
+		createDerectory();
 		try {
 			ServletFileUpload sf  = new ServletFileUpload(new DiskFileItemFactory());
 			List <FileItem> files = sf.parseRequest(request);
@@ -121,12 +131,12 @@ public class FileUploadServlet extends HttpServlet {
 						System.out.println("this is a normal file");
 						if(!filePaths.contains((derectory + file.getName()))) {
 							
+							filePaths.add(derectory + file.getName());
 						}
-						filePaths.add(derectory + file.getName());
 						if(!fileNameArray.contains(file.getName())) {
 							
+							fileNameArray.add(file.getName());
 						}
-						fileNameArray.add(file.getName());
 						file.write(new File(derectory + file.getName()));
 					}
 			}
@@ -184,10 +194,10 @@ public class FileUploadServlet extends HttpServlet {
 	                filePaths.add(newFile.getAbsolutePath());
 	                }
 	                //create directories for sub directories in zip
-	                new File(newFile.getParent()).mkdir();
+	                new File(newFile.getParent()).mkdirs();
 	                if (ze.isDirectory()) {
-	                	File newF = new File(destDir + fileName);
-	                	newF.createNewFile();
+//	                	File newF = new File(destDir + fileName);
+//	                	newF.createNewFile();
 	                	Path path = Paths.get(derectory + ze.getName());
 	    				try {
 	    					Stream<Path> subPath = Files.walk(path);
