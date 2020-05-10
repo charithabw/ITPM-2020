@@ -57,11 +57,16 @@ public class codeServlet extends HttpServlet {
 		if(button.equals("ControlStructure")) {
 			
 			ControllStructure controllStructure = new ControllStructure();
+			controllStructure.setCode(code);
 			
+			String tb = controllStructure.getTable();
 			
+			request.setAttribute("tb", tb);
 			
 			request.getRequestDispatcher("controll_structures.jsp").forward(request, response);
 		}
+		
+		
 		if(button.equals("Coupling")) {
 			
 			Coupling couling = new Coupling();
