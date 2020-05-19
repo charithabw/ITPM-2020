@@ -8,7 +8,7 @@
 <title>inheritance</title>
 </head>
 <body>
-<!-- Dinithi -->
+<!-- Dinithi Anupama -->
 		<table>
 		<thead>
 			<tr>
