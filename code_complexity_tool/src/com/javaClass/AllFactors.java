@@ -5,10 +5,22 @@ import com.servlet.codeServlet;
 public class AllFactors {
 	codeServlet cs = new codeServlet();
 	private String code = cs.returnCode();
+	int[] ccpValue ;
 	
+	public void getCCPValue() {
+		Coupling c = new Coupling();
+		c.setCode(code);
+		ccpValue = c.getccpValue();
+//		for(int i = 0; i < c.getccpValue().length; i++) {
+//			
+//			System.out.println(c.getccpValue()[i]);
+//		}
+//		System.out.println(ccpValue.length);
+	}
 	
 	
 	public String gettable() {
+		getCCPValue();
 		String output = "";
 		String test = "";
 		String[] lines = code.split("\\r?\\n");
@@ -26,7 +38,7 @@ public class AllFactors {
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
+			output += "<td>" + ccpValue[i] + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td></tr>";
 			i++;

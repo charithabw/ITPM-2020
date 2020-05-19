@@ -26,10 +26,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.javaClass.ControllStructure;
 import com.javaClass.Coupling;
-import com.javaClass.Inheritance;
+
 import com.javaClass.Size;
 import com.javaClass.SizeVariable;
 import com.javaClass.variable;
+import com.model.InheritanceModel;
 
 
 /**
@@ -181,11 +182,11 @@ public class codeServlet extends HttpServlet {
 		
 		if(button.equals("Inheritance")) {
 			
-			Inheritance inheritance = new Inheritance();
-			
-			
-			
-			request.getRequestDispatcher("inheritance.jsp").forward(request, response);
+//			Inheritance inheritance = new Inheritance();
+//			inheritance.setCode(code);
+//			List<InheritanceModel> inheritanceList = inheritance.getComplexity();
+//			request.setAttribute("inheritanceList", inheritanceList);
+//			request.getRequestDispatcher("inheritance.jsp").forward(request, response);
 		}
 		if(button.equals("ControlStructure")) {
 			
@@ -226,7 +227,7 @@ public class codeServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	public String returnCode() {
-		System.out.println(code);
+		//System.out.println(code);
 		return code;
 	}
 }
