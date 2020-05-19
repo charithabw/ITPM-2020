@@ -8,6 +8,7 @@
 <title>inheritance</title>
 </head>
 <body>
+<!-- Dinithi -->
 		<table>
 		<thead>
 			<tr>
