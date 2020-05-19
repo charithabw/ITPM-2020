@@ -76,7 +76,7 @@
 			<input class = "btn btn-primary"  type = "submit" name = "button" value = "Coupling" style = "height: 50px; width: 100px ; float: left;">
 			</div>
 			<div class="btn-group">
-			<input class = "btn btn-primary"  type = "submit" name = "button" value = "All-Factors" style = "height: 50px; width: 100px ; float: left;">
+			<input class="btn btn-outline-primary" type = "submit" name = "button" value = "All-Factors" style = "height: 75px; width: 100px ; float: left; color:#094C71; font-weight: bold;">
 			</div>
 			</div>
 			
@@ -91,7 +91,7 @@
 		<h5>upload A ZIP file or normal fileS here...</h5>
 					<form action= "FileUploadServlet" method="post" enctype="multipart/form-data" id = bottom>
 						<input class="btn btn-link" type ="file" name ="file" multiple/>
-						<input class="btn btn-secondary"  type = "submit" value = "file-upload"/>
+						<input class="btn btn-outline-secondary"  type = "submit" value = "file-upload" style = "font-weight: bold "/>
 					</form>
 					
 					

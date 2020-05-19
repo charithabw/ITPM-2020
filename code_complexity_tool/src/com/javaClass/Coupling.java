@@ -370,7 +370,7 @@ public class Coupling {
 						  if(!methodsStack.isEmpty()) {
 							  //System.out.println(methodsStack.peek());
 						  if(cusCodeLine.contains(methodsStack.peek())) {
-						      score[s] = 1 *wNr;
+						      score[s] = 1 ;
 						      s++;
 						      //System.out.println(cusCodeLine);
 							  
@@ -451,7 +451,7 @@ public class Coupling {
 		 
 		for(int i =0; i < score.length; i++) {
 			 if(score[i] == 1) {
-				 score[i] = 1 * wNr;
+				 score[i] = 1 ;
 				 recursive = true; 
 				 break;
 			 }
@@ -607,6 +607,7 @@ public class Coupling {
 //			  System.out.println("not");
 //		  }
 		  
+		 if(classMethodArray.size() > 0) {
 		  for(int i = 0; i < classMethodArray.size(); i++) {
 			  if(tStatment.contains(classMethodArray.get(i))) {
 				 
@@ -616,9 +617,9 @@ public class Coupling {
 					  regular = true;
 					  break;
 			  }
-		  }
-			  else {
-		 	  	  
+		  }else {
+		  
+		 
 		  for(int k = 0; k < methodsArray.size(); k++) {
 			  
 			 
@@ -637,7 +638,28 @@ public class Coupling {
 			  regular =  false;
 			  
 		  }
-		  }}}
+		  }}}}
+		 else {
+			 for(int k = 0; k < methodsArray.size(); k++) {
+				  
+				 
+				  
+				  if(tStatment.contains(methodsArray.get(k))) {
+					  
+					  if(getMethod(tStatment) != null) {
+						  regular = false;
+					  }
+					  else {
+					  regular = true;
+					  break;
+					  }
+			  }
+				  else {
+				  regular =  false;
+				  
+			  }
+
+		 }}
 		  return regular;
  }
  
@@ -650,7 +672,7 @@ public class Coupling {
 		 boolean regular = checkRegularMethod(tLine);
 		 
 		 if(regular) {
-			 score[s] = 1 *wNmcms ;
+			 score[s] = 1  ;
 			 s++;
 		 }
 		 else {
@@ -833,7 +855,7 @@ public int[] checkGloblevariable() {
 				if(myWord.equals(variableArray.get(i))) {
 //					System.out.println(myWord);
 //					System.out.println("ccccccccccccc");
-					score[s] = score[s] + 1 * wNmrgvs;
+					score[s] = score[s] + 1 ;
 				}
 			}}
 			s++;
@@ -951,6 +973,9 @@ public int[] checkGloblevariable() {
 		 int[] recursiveScores = checkRecursive(code);
 		 int[] regularScore = isRegular();
 		 int[] globleVariable = checkGloblevariable();
+		 int totRecursiveScores = 0;
+		 int totRegularScore = 0;
+		 int totGlobleVariable = 0;
 		 
 		 
 		 
@@ -967,6 +992,9 @@ public int[] checkGloblevariable() {
 		int j = lines.length;
 		while(j > 0) {
 			
+			totRecursiveScores = totRecursiveScores + recursiveScores[i];
+			totRegularScore = totRegularScore + regularScore[i];
+			totGlobleVariable = totGlobleVariable + globleVariable[i];
 			
 			output += "<tr><td>" + lines[i] + "</td>";
 			output += "<td>" + recursiveScores[i] + "</td>";
@@ -982,14 +1010,85 @@ public int[] checkGloblevariable() {
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
-			output += "<td>" + (recursiveScores[i] + regularScore[i] * 2 + globleVariable[i]) + "</td> </tr>";
+			output += "<td>" + (recursiveScores[i] * wNr + regularScore[i] *wNmcms + globleVariable[i] * wNmrgvs) + "</td> </tr>";
 			i++;
 			j--;
 		}
 		
+		output += "<tr><th bgcolor= '#FDEDEC '>" +"TOTAL"+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totRecursiveScores+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totRegularScore+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totGlobleVariable+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +test+"</th></tr>";
 		output += "</table>"; 
 		
 		return output;
+	}
+	public int[] getccpValue() {
+		String[] lines = displayCode();
+		int[] ccp = new int [lines.length];	
+		int[] recursiveScores = checkRecursive(code);
+		int[] regularScore = isRegular();
+		int[] globleVariable = checkGloblevariable();
+		
+		int i = 0;
+		int j = lines.length;
+		
+		while(j > 0) {
+			ccp[i] = recursiveScores[i] + regularScore[i]   + globleVariable[i];
+			//System.out.println(ccp[i]);
+			i++;
+			j--;
+		}
+		
+		
+		return ccp;
+	}
+	
+	public int[] gettotalValue() {
+		int[] tot = new int[13];
+		String[] lines = displayCode();
+		int[] recursiveScores = checkRecursive(code);
+		int[] regularScore = isRegular();
+		int[] globleVariable = checkGloblevariable();
+		int totRecursiveScores = 0;
+		int totRegularScore = 0;
+		int totGlobleVariable = 0;
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			totRecursiveScores = totRecursiveScores + recursiveScores[i];
+			totRegularScore = totRegularScore + regularScore[i];
+			totGlobleVariable = totGlobleVariable + globleVariable[i];
+			
+			i++;
+			j--;
+		}
+		tot[0] = totRecursiveScores;
+		tot[1] = totRegularScore;
+		tot[2] = 0;
+		tot[3] = 0;
+		tot[4] = 0;
+		tot[5] = 0;
+		tot[6] = 0;
+		tot[7] = 0;
+		tot[8] = 0;
+		tot[9] = totGlobleVariable;
+		tot[10] = 0;
+		tot[11] = 0;
+		tot[12] = 0;
+		
+		return tot;
 	}
 	
 
