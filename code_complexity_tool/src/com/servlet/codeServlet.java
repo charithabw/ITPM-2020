@@ -182,12 +182,15 @@ public class codeServlet extends HttpServlet {
 		
 		if(button.equals("Inheritance")) {
 			
-			Inheritance inheritance = new Inheritance();
-			inheritance.setCode(code);
-			List<InheritanceModel> inheritanceList = inheritance.getComplexity();
-			request.setAttribute("inheritanceList", inheritanceList);
-			request.getRequestDispatcher("inheritance.jsp").forward(request, response);
+		//	Inheritance inheritance = new Inheritance();
+		//	inheritance.setCode(code);
+		//	List<InheritanceModel> inheritanceList = inheritance.getComplexity();
+		//	request.setAttribute("inheritanceList", inheritanceList);
+		
+			request.getRequestDispatcher("WeightInheritance.jsp").forward(request, response);
 		}
+		
+		
 		if(button.equals("ControlStructure")) {
 			
 			ControllStructure controllStructure = new ControllStructure();
