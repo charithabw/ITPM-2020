@@ -353,6 +353,44 @@ public class Size {
 		return output;
 
 	}
+	public int[] getToatalValue() {
+		int[] tot = new int[6];
+		String[] lines = displayCode();
+		int[] keywrd = getKeyWrds();
+		int[] inden = getIdentifiers();
+		int[] method = ismethod();
+		int[] operator = getoperators();
+		int[] nsl = isstring();
+		int[] Nnv = getNumber();
+		
+		int totkeyword = 0;
+		int totiden =0;
+		int totMethod =0;
+		int totOperation =0;
+		int totNsl =0;
+		int totNnv = 0;
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			totkeyword = totkeyword+keywrd[i];
+			totiden = totiden+inden[i];
+			totMethod = totMethod+method[i];
+			totOperation = totOperation+operator[i];
+			totNnv = totNnv + Nnv[i];
+			totNsl = totNsl+nsl[i];
+			i++;
+			j--;
+		}
+		tot[0] = totkeyword;
+		tot[1] = totiden;
+		tot[2] = totMethod;
+		tot[3] = totOperation;
+		tot[4] = totNsl;
+		tot[5] = totNnv;
+		return tot;
+		
+	}
 
 	
 
