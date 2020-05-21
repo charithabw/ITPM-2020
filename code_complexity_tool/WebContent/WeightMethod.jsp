@@ -15,10 +15,10 @@
 			<table class="table table-hover" border="1">
 			<tr><th bgcolor= '#839192'>Program Component</th><th bgcolor= '#839192'>Weight</th></tr>
 			<tr><td >Method with a primitive return type</td><td ><input type="text" name = "WmrtP" value = 1> </td></tr>
-			<tr><td>Method with a composite return type</td><td><input type="text" name = "WmrtC" value = 1> </td></tr>
-			<tr><td>Method with a void return type</td><td><input type="text" name = "WmrtV" value = 1> </td></tr>
+			<tr><td>Method with a composite return type</td><td><input type="text" name = "WmrtC" value = 2> </td></tr>
+			<tr><td>Method with a void return type</td><td><input type="text" name = "WmrtV" value = 0> </td></tr>
 			<tr><td>Primitive data type parameter</td><td><input type="text" name = "Wpdtp" value = 1> </td></tr>
-			<tr><td>Composite data type parameter</td><td> <input type="text" name = "Wcdtp" value = 1></td></tr>
+			<tr><td>Composite data type parameter</td><td> <input type="text" name = "Wcdtp" value = 2></td></tr>
 				
 			</table>
 			

@@ -10,6 +10,20 @@
 	
 </head>
 <body>
+
+<header>
+		
+		<ul class= "main-nav" >
+				<li><a href = "index.jsp">HOME</a></li>
+				<li class="active"><a href = "#">Size</a></li>
+				<li><a href = "WeightSize.jsp">Change Weight</a></li>
+				<li><a href = "ChartSize.jsp">Graphic View</a></li>
+				<li><a href = "fileUpload.jsp">Uploaded File</a></li>
+				
+		</ul>
+		
+		</header>
+
  ${tb}
 </body>
 </html>
