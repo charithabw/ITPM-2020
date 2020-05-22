@@ -175,7 +175,7 @@ public class SizeVariable {
 		//int[] primit = isPrimitive();
 		String output = "";
 		
-		output =  "<table border=\"1\">"
+		output =  "<table table class= 'table table-hover' border=\"1\">"
 				+ "<tr><th> Code Lines </th>"
 				+"<th>Wmrt</th>"
 				+ "<th>Npdtp</th>"
@@ -189,7 +189,7 @@ public class SizeVariable {
 			output +="<td>" +Wmrt[i]+ "</td>"; 
 			output +="<td>" +blank+ "</td>"; 
 			output += "<td>"+Ncdtp[i]+"</td>";
-			output += "<td>"+Wmrt[i]+(Wcdtp *Ncdtp[i]) +"</td></tr>";
+			output += "<td>"+(Wmrt[i]+(Wcdtp *Ncdtp[i])) +"</td></tr>";
 			
 			i++;
 			j--;

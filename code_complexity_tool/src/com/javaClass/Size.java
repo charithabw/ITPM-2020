@@ -332,7 +332,7 @@ public class Size {
 		//int[] globleVariable = checkGloblevariable();
 		String output = "";
 
-		output = "<table border=\"1\">" + "<tr><th> Code Lines </th>" + "<th>Nkw</th>" +"<th>Nid</th>"+ "<th>Nop</th>" + "<th>Nnv</th>"
+		output = "<table table class= 'table table-hover' border=\"1\">" + "<tr><th> Code Lines </th>" + "<th>Nkw</th>" +"<th>Nid</th>"+ "<th>Nop</th>" + "<th>Nnv</th>"
 				+ "<th>Nsl</th>" + "<th>Cs</th></tr>";
 		int i = 0;
 		int j = lines.length;
