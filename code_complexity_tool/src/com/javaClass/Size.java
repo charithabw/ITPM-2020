@@ -6,13 +6,13 @@ import javax.sound.sampled.Line;
 
 public class Size {
 
-	int Wkw;
-	int Wid;
-	int Wop;
-	int Wnv;
-	int Wsl;
+	private int Wkw= 1;
+	private int Wid = 1;
+	private int Wop =1;
+	private int Wnv =1;
+	private int Wsl =1;
 	
-	String code;
+	private String code;
 	String keywrd[] = { "public","private","void",  "printf", "println", "cout", "cin", "if", "for",
 			"while", "do", "switch", "case" };
 	String indentifiers[] = {"(", ";"};
@@ -323,13 +323,13 @@ public class Size {
 	
 	public String getTable() {
 		String[] lines = displayCode();
-		int[] keywrd = getKeyWrds();
-		int[] inden = getIdentifiers();
-		int[] method = ismethod();
-		int[] operator = getoperators();
-		int[] nsl = isstring();
+		int[] Nkw = getKeyWrds();
+		int[] Nid = ismethod();
+		int[] Nop = getoperators();
 		int[] Nnv = getNumber();
-;		//int[] globleVariable = checkGloblevariable();
+		int[] nsl = isstring();
+		
+		//int[] globleVariable = checkGloblevariable();
 		String output = "";
 
 		output = "<table border=\"1\">" + "<tr><th> Code Lines </th>" + "<th>Nkw</th>" +"<th>Nid</th>"+ "<th>Nop</th>" + "<th>Nnv</th>"
@@ -339,12 +339,12 @@ public class Size {
 		int blank = 0;
 		while (j > 0) {
 			output += "<tr><td>" + lines[i] + "</td>";
-			output += "<td>" + keywrd[i] + "</td>";
-			output += "<td>" + method[i] + "</td>";
-			output += "<td>" + operator[i] + "</td>";
+			output += "<td>" + Nkw[i] + "</td>";
+			output += "<td>" + Nkw[i] + "</td>";
+			output += "<td>" + Nop[i] + "</td>";
 			output += "<td>" + Nnv[i] + "</td>";
 			output += "<td>" + nsl[i] + "</td>";
-			output += "<td>" +( keywrd[i] + Nnv[i] + method[i] + operator[i] + Nnv[i] + nsl[i] )+ "</td> </tr>";
+			output += "<td>" +( Nkw[i] + Nnv[i] + Nkw[i] + Nop[i] + Nnv[i] + nsl[i] )+ "</td> </tr>";
 			i++;
 			j--;
 		}
@@ -356,40 +356,58 @@ public class Size {
 	public int[] getToatalValue() {
 		int[] tot = new int[6];
 		String[] lines = displayCode();
-		int[] keywrd = getKeyWrds();
-		int[] inden = getIdentifiers();
-		int[] method = ismethod();
-		int[] operator = getoperators();
-		int[] nsl = isstring();
+		int[] Nkw = getKeyWrds();
+		int[] Nid = ismethod();
+		int[] Nop = getoperators();
 		int[] Nnv = getNumber();
-		
-		int totkeyword = 0;
-		int totiden =0;
-		int totMethod =0;
-		int totOperation =0;
-		int totNsl =0;
+		int[] nsl = isstring();
+			
+		int totNkw = 0;
+		int totNid =0;
+		int totNop =0;
 		int totNnv = 0;
+		int totNsl =0;
+
 		
 		int i = 0;
 		int j = lines.length;
 		while(j > 0) {
-			totkeyword = totkeyword+keywrd[i];
-			totiden = totiden+inden[i];
-			totMethod = totMethod+method[i];
-			totOperation = totOperation+operator[i];
+			totNkw = totNkw + Nkw[i];
+			totNid = totNid + Nid[i];
+			totNop = totNop + Nop[i];
 			totNnv = totNnv + Nnv[i];
 			totNsl = totNsl+nsl[i];
+			System.out.println(totNkw);
 			i++;
 			j--;
 		}
-		tot[0] = totkeyword;
-		tot[1] = totiden;
-		tot[2] = totMethod;
-		tot[3] = totOperation;
+		tot[0] = totNkw ;
+		tot[1] = totNid;
+		tot[2] = totNop;
+		tot[3] = totNnv;
 		tot[4] = totNsl;
-		tot[5] = totNnv;
+
+		
 		return tot;
 		
+	}
+	public int[] getcsValue() {
+		String[] lines = displayCode();
+		int[] cs = new int [lines.length];
+		int[] Nkw = getKeyWrds();
+		int[] Nid = ismethod();
+		int[] Nop = getoperators();
+		int[] Nnv = getNumber();
+		int[] nsl = isstring();
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			cs[i] = Nkw[i] + Nid[i] + Nop[i] + Nnv[i] + nsl[i];
+			i++;
+			j--;		
+		}
+		return cs;
 	}
 
 	

@@ -188,8 +188,8 @@ public class SizeVariable {
 			output += "<tr><td>" +lines[i]+"</td>";
 			output +="<td>" +Wmrt[i]+ "</td>"; 
 			output +="<td>" +blank+ "</td>"; 
-			output += "<td>"+Ncdtp[i]+"</td></tr>";
-			//output += "<td>" + (Wmrt[i] + (     )    )    +
+			output += "<td>"+Ncdtp[i]+"</td>";
+			output += "<td>"+Wmrt[i]+(Wcdtp *Ncdtp[i]) +"</td></tr>";
 			
 			i++;
 			j--;
@@ -198,5 +198,48 @@ public class SizeVariable {
 		
 		return output;
 		
+	}
+	
+	
+	public int[] getToatalValue() {
+		int[] tot = new int[6];
+		String[] lines = displayCode();
+		int[] Ncdtp = ismethod();
+		int[] Wmrt = getKeyWrds();
+		
+		int totNcdtp = 0;
+		int totWmrt =0;
+	
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			totNcdtp = totNcdtp + Ncdtp[i];
+			totWmrt = totWmrt + Wmrt[i];
+			i++;
+			j--;
+		}
+		tot[0] = totNcdtp ;
+		tot[1] = totWmrt;
+	
+		
+		return tot;
+		
+	}
+	public int[] getcmValue() {
+		String[] lines = displayCode();
+		int[] cm = new int [lines.length];
+		int[] Ncdtp = ismethod();
+		int[] Wmrt = getKeyWrds();
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			cm[i] = Ncdtp[i] +Wmrt[i];
+			i++;
+			j--;
+		}
+		
+		return cm; 
 	}
 }

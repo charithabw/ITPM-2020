@@ -399,7 +399,7 @@ public class variable {
 			output += "<td>" +Wvs[i]+"</td>";
 			output += "<td>" +Npdtv[i]+"</td>";
 			output += "<td>" +blank+"</td>";
-			output += "<td>" +blank+"</td></tr>";
+			output += "<td>" +Wvs[i]*(Wpdtv*Npdtv[i])+"</td></tr>";
 			i++;
 			j--;
 		}
@@ -407,5 +407,47 @@ public class variable {
 		
 		return output;
 		
+	}
+	
+	
+	public int[] getToatalValue() {
+		int[] tot = new int[6];
+		String[] lines = displayCode();
+		int[] Wvs = checkGloblevariable();
+		int[] Npdtv = getoperators();
+	
+		int totWvs = 0;
+		int totNpdtv =0;
+	
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			totWvs = totWvs + Wvs[i];
+			totNpdtv = totNpdtv+Npdtv[i];
+			i++;
+			j--;
+		}
+		tot[0] = totWvs ;
+		tot[1] = totNpdtv;
+	
+		
+		return tot;
+		
+	}
+	public int[] getcvValue() {
+		String[] lines = displayCode();
+		int[] cv = new int [lines.length];
+		int[] Wvs = checkGloblevariable();
+		int[] Npdtv = getoperators();
+		
+		int i = 0;
+		int j = lines.length;
+		while(j > 0) {
+			cv [i] = Wvs[i] + Npdtv[i];
+			i++;
+			j--;
+		}
+	return cv;
 	}
 }
