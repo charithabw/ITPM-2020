@@ -385,7 +385,7 @@ public class variable {
 		int[] Npdtv = getoperators();
 		String output = "";
 		
-		output =  "<table border=\"1\">"
+		output =  "<table table class= 'table table-hover' border=\"1\">"
 				+ "<tr><th> Code Lines </th>"
 				+"<th>Wvs</th>"
 				+ "<th>Npdtv</th>"
