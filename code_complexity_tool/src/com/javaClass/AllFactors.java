@@ -6,7 +6,9 @@ public class AllFactors {
 
 	private String code;	
 	int[] ccpValue ;
+	int[] ccsValue;
 	int totccpValue = 0;
+	int totccsValue = 0;
 
 	public void getCCPValue() {		
 		Coupling c = new Coupling();
@@ -18,16 +20,24 @@ public class AllFactors {
 //		}
 //		System.out.println(ccpValue.length);
 	}
+	public void getCCSValue() {
+		ControllStructure cnts = new ControllStructure();
+		cnts.setCode(code);
+		ccsValue = cnts.getccsValue();
+		
+	}
 	public void setCode(String code) {
 		this.code = code;
 	}
 	
 	public String gettable() {
 		getCCPValue();
+		getCCSValue();
 		String output = "";
 		String test = "";
 		String[] lines = code.split("\\r?\\n");
 		int totCCP = 0;
+		int totCCS = 0;
 		int total = 0;
 		
 		output = "<table class= 'table table-hover' border='1'>"
@@ -39,6 +49,7 @@ public class AllFactors {
 		while(j > 0) {
 			
 			totCCP = totCCP + ccpValue[i];
+			totCCS = totCCS + ccsValue[i];
 			
 			output += "<tr><th>" + k++ + "</th>";
 			output += "<td>" + lines[i] + "</td>";
@@ -47,13 +58,13 @@ public class AllFactors {
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + ccpValue[i] + "</td>";
-			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td></tr>";
+			output += "<td>" + ccsValue[i] + "</td>";
+			output += "<td>" + (ccpValue[i] + ccsValue[i]) + "</td></tr>";
 			i++;
 			j--;
 		}
 		
-		total = totCCP;
+		total = totCCP + totCCS;
 		
 		output += "<tr><th bgcolor= '#FDEDEC '></th>";
 		output += "<th bgcolor= '#FDEDEC '>" +"TOTAL"+"</th>";
@@ -62,7 +73,7 @@ public class AllFactors {
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totCCP+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totCCS+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +total+"</th></tr>";
 		
 		output += "</table>"; 
@@ -81,17 +92,33 @@ public class AllFactors {
 			i++;
 			j--;
 		}
+	}	
+		public void getTotCCS() {
+			
+			ControllStructure cnts = new ControllStructure();
+			cnts.setCode(code);
+			ccsValue = cnts.getccsValue();
+			String[] lines = code.split("\\r?\\n");
+			int i = 0;
+			int j = lines.length;
+			while(j > 0) {
+				totccpValue = totccpValue + ccpValue[i];
+				totccsValue = totccsValue + ccsValue[i];
+				i++;
+				j--;
+			}
 		
 	}
 	public int[] gettotalValue() {
 		getTotCCP();
+		getTotCCS();
 		int[] tot = new int[6];
 		tot[0] = 0;
 		tot[1] = 0;
 		tot[2] = 0;
 		tot[3] = 0;
 		tot[4] = totccpValue;
-		tot[5] = 0;		
+		tot[5] = totccsValue;		
 		//System.out.println(totccpValue);
 		return tot;
 	}
