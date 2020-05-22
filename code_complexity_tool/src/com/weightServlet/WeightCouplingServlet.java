@@ -97,23 +97,9 @@ public class WeightCouplingServlet extends HttpServlet {
 		if(button.equals("save")) {
 		Coupling c = new Coupling();
 		c.weights(Integer.parseInt(wNr), Integer.parseInt(wNmcms), Integer.parseInt(wNmcmd), Integer.parseInt(wNmcrms), Integer.parseInt(wNmcrmd), Integer.parseInt(wNrmcrms), Integer.parseInt(wNrmcrmd), Integer.parseInt(wNrmcms), Integer.parseInt(wNrmcmd), Integer.parseInt(wNmrgvs), Integer.parseInt(wNmrgvd), Integer.parseInt(wNrmrgvs), Integer.parseInt(wNrmrgvd));
-//		wc.setwNr(Integer.parseInt(wNr));
-//		wc.setwNmcms(Integer.parseInt(wNmcms));
-//		wc.setwNmcmd(Integer.parseInt(wNmcmd));
-//		wc.setwNmcrms(Integer.parseInt(wNmcrms));
-//		wc.setwNmcrmd(Integer.parseInt(wNmcrmd));
-//		wc.setwNrmcrms(Integer.parseInt(wNrmcrms));
-//		wc.setwNrmcrmd(Integer.parseInt(wNrmcrmd));
-//		wc.setwNrmcms(Integer.parseInt(wNrmcms));
-//		wc.setwNrmcmd(Integer.parseInt(wNrmcmd));
-//		wc.setwNmrgvs(Integer.parseInt(wNmrgvs));
-//		wc.setwNmrgvd(Integer.parseInt(wNmrgvd));
-//		wc.setwNrmrgvs(Integer.parseInt(wNrmrgvs));
-//		wc.setwNrmrgvd(Integer.parseInt(wNrmrgvd));
 		
-		//response.getWriter().write();
-		//System.out.println(wNr);
-		//response.sendRedirect(request.getHeader("Referer"));
+		
+		
 		codeServlet cs = new codeServlet();
 		String code = cs.returnCode();
 		//System.out.println(code);

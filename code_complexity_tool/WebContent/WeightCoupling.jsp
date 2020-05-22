@@ -6,10 +6,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Change weight Couping</title>
+<link href = "stylesheet/pageStyleSheet.css" rel="stylesheet" type="text/css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 <body>
+<header>
+		
+		<ul class= "main-nav" >
+				<li><a href = "index.jsp">HOME</a></li>					
+				<li class="active"><a href = "WeightCoupling.jsp">Weights</a></li>
+				
+		</ul>
+		
+		</header>
+
+
 	<h2>If you want to change default WEIGHTS change here....</h2>
 	<form action = "WeightCouplingServlet" method= POST>
 	<div style = "width : 50%; float : left;">
