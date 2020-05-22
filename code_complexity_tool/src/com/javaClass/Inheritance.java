@@ -175,9 +175,46 @@ public class Inheritance {
 
 		        return indirectInheritanceLevel;
 		    }
-		   
-		  
-		
-	
+//		   chart
+//		    public int[] getToatalValue() {
+//				int[] tot = new int[4];
+//				String[] lines = displayCode();
+//				int[] Ndi = getndi();
+//				int[] Nidi = getnidi();
+//				int[] Ti = getti();
+//				int[] Ci = getci();
+//			
+//					
+//				int totNdi = 0;
+//				int totNidi =0;
+//				int totTi =0;
+//				int totCi = 0;
+//				
+//
+//				
+//				int i = 0;
+//				int j = lines.length;
+//				while(j > 0) {
+//					totNdi = totNdi + Ndi[i];
+//					totNidi = totNidi + Nidi[i];
+//					totTi = totTi + Ti[i];
+//					totCi = totCi + Ci[i];
+//				
+//					
+//					i++;
+//					j--;
+//				}
+//				tot[0] = totNdi ;
+//				tot[1] = totNidi;
+//				tot[2] = totTi;
+//				tot[3] = totCi;
+//				
+//
+//				
+//				return tot;
+//				
+//			}
+//		
+//	
 
 }
