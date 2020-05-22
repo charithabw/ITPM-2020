@@ -6,13 +6,24 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>File Uploading</title>
-
+ <link href = "stylesheet/pageStyleSheet.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 <body>
 
-<div>
+
+<header>
+		
+		<ul class= "main-nav" >
+				<li><a href = "index.jsp">HOME</a></li>					
+				<li class="active"><a href = "fileUpload.jsp">Uploaded File</a></li>
+				
+		</ul>
+		
+		</header>
+
+<div style = "width: 30%; float: left; margin-top: 70px">
 <form action= 'FileSelectServlet'>
 <%
 FileUpload fu = new FileUpload();
@@ -20,14 +31,12 @@ out.print(fu.getFileList());
 %>
 
 </form>
-</div>
-
-
-		
+</div>			
+		<div style = "width: 60%; float: right; text-align: left;">
 			<form action= "codeServlet" method = POST >
-			<div class = "textarea" style=" margin-left: 50px; width: 90%; text-align: left ;">
+			<div class = "textarea" style=" margin-left: 50px; ">
 		
-			<textarea  name = "code" rows = "15" cols="100" placeholder="COPPY YOUR CIDE HERE"   Style = "" >${tb}</textarea>
+			<textarea readonly="readonly" name = "code" rows = "20" cols="70" placeholder="CODE..."   Style = "" >${tb}</textarea>
 			</div>
 			<div style = " margin-left: 50px">
 			<div class="btn-group">
@@ -61,7 +70,6 @@ out.print(fu.getFileList());
 			</div>
 			
 		</form>
-		
-
+	</div>
 </body>
 </html>

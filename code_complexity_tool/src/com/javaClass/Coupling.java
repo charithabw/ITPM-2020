@@ -12,6 +12,7 @@ import java.util.Stack;
 import org.apache.tomcat.jni.Sockaddr;
 
 import com.servlet.codeServlet;
+import com.sun.org.apache.regexp.internal.RE;
 
 import sun.security.util.Length;
 
@@ -20,27 +21,30 @@ public class Coupling {
 	//bandara
 	//codeServlet cs = new codeServlet();
 	
-	private int wNr;
-	private int wNmcms;
-	private int wNmcmd;
-	private int wNmcrms;
-	private int wNmcrmd;
-	private int wNrmcrms;
-	private int wNrmcrmd;
-	private int wNrmcms;
-	private int wNrmcmd;
-	private int wNmrgvs;
-	private int wNmrgvd;
-	private int wNrmrgvs;
-	private int wNrmrgvd;
+	private int wNr = 2;
+	private int wNmcms = 2;
+	private int wNmcmd = 3;
+	private int wNmcrms = 3;
+	private int wNmcrmd = 4;
+	private int wNrmcrms = 4;
+	private int wNrmcrmd =5;
+	private int wNrmcms = 3;
+	private int wNrmcmd = 4;
+	private int wNmrgvs = 1;
+	private int wNmrgvd = 2;
+	private int wNrmrgvs =1;
+	private int wNrmrgvd =2;
 	
+	private ArrayList<String> RECURSIVEMETHODARRAY = new ArrayList<String>();
+	private ArrayList<String> AlLMETHODARRAY = new ArrayList<String>();
 	
-	
+	private boolean Status ;
 	
 	private String code ;
 	 boolean recursive;
 	public void setCode(String code) {
 		this.code = code;
+		
 		System.out.println(code);
 	}
 	public String getCode() {
@@ -49,9 +53,7 @@ public class Coupling {
 //	
 	public String[] displayCode() {
 		
-//		String r= "ccc";
-//		int value = 0;
-		///String [] d = {"dd","fff"};
+	
 		 String[] lines = getCode().split("\\r?\\n");
 	        for(String line : lines) {
 	        	String tLine = line.trim();
@@ -85,11 +87,7 @@ public class Coupling {
 		
          String newStr = statement;
          String method = null;
-         String[] words = newStr.split(" ");
-        
-//         String[] methodTypeWords = new String[] { "public", "private", "void" };
-//         List <String> list = Arrays.asList(methodTypeWords);
-//         CharSequence s = "public";
+         String[] words = newStr.split(" ");                
        
          if (statement.contains("public") || statement.contains("private") || statement.contains("void"))
          {	
@@ -108,6 +106,15 @@ public class Coupling {
 
          return method;
      }
+	 
+	 public void checkAllMethods() {
+		 String[] lines = code.split("\\r?\\n");
+				for(String line : lines) {
+			if(getMethod(line) != null) {
+				AlLMETHODARRAY.add(getMethod(line));
+			}
+		}
+	 }
 	 
 	 
 	 public int[] checkRecursive(String code) {
@@ -139,14 +146,269 @@ public class Coupling {
 		  for(int i = 0; i < reverseMethodArray.size();i++) {
 			  methodsStack.push(reverseMethodArray.get(i));
 		  }
-//		  System.out.println(methodsStack.pop());
-//		  System.out.println(methodsStack.pop());
 		 
-//		 for(int j = 0; j < methodsArray.size(); j++) {
-//			  	System.out.println(methodsArray.get(j));
-//			}
+		 String myCode0 = null;
+		 for(int i = 0; i < lines.length; i++) {
+			 
+			 if((lines[i].contains("String")|| lines[i].contains("int")) && (lines[i].contains("[") && lines[i].contains("{"))) {
+				 if (getMethod(lines[i]) == null) {
+				 myCode0 = myCode0 + lines[i].replace(lines[i], "THIS IS A ARRAY") + "\n";
+				 }
+				 else {
+				 myCode0 = myCode0 + lines[i] +"\n";
+				 }
+			 }
+			 else {
+				 myCode0 = myCode0 + lines[i] +"\n";
+						
+			 }
+		 }
+		 // System.out.println(myCode0);
+		  
+		  
+		  String myCode1 = null;
+		  String[] myLine1 = myCode0.split("\\r?\\n");
+		  int iR = 0;
+		  int jR =0;
+		  int kR = 0;
+		  
+		  for( iR = 0; iR < myLine1.length; iR++) {
+			  
+			  if(myLine1[iR].contains("if ") && myLine1[iR].contains("{")) {
+				  myCode1 = myCode1 + myLine1[iR].replace("if ", "ep") + "\n";
+				  for(jR = iR + 1; jR < myLine1.length; jR++) { 
+					  if(myLine1[jR].contains("if ") && myLine1[jR].contains("{")) {
+						  myCode1 = myCode1 + myLine1[jR].replace("if ", "epa") + "\n";
+						  for(kR = jR + 1; kR < myLine1.length; kR++) {
+							  if(myLine1[kR].contains("}")) {
+								  myCode1 = myCode1 + myLine1[kR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+							  }
+							  else {
+								  myCode1 = myCode1 + myLine1[kR] + "\n";
+							  }
+						  }
+						  jR = kR;
+						  
+						  
+					  }
+					  else if(myLine1[jR].contains("}")) {
+					    myCode1 = myCode1 + myLine1[jR].replace("}", "*") + "\n";
+									  //System.out.println(myCode);
+									  break;
+									 
+								  }
+					  else {
+						  myCode1 = myCode1 + myLine1[jR] + "\n";
+					  }
+							   
+						   }
+				  iR = jR;
+				   }
+			  else{
+				 myCode1 = myCode1 + myLine1[iR] + "\n";
+			  }
+		  }
+		  
+		  String myCode2 = null;
+		  String[] myLine2 = myCode1.split("\\r?\\n");
+		  int xR = 0;
+		  int yR =0;
+		  
+		  
+		  for( xR = 0; xR < myLine2.length; xR++) {
+			  
+			  if(myLine2[xR].contains("else ") && myLine2[xR].contains("{")) {
+				  myCode2 = myCode2 + myLine2[xR].replace("else ", "ZZZz") + "\n";
+				  for(yR = xR + 1; yR < myLine2.length; yR++) { 
+					  if(myLine2[yR].contains("}")) {
+					    myCode2 = myCode2 + myLine2[yR].replace("}", "*") + "\n";
+									  //System.out.println(myCode);
+									  break;
+									 
+								  }
+					  else {
+						  myCode2 = myCode2 + myLine2[yR] + "\n";
+					  }
+							   
+						   }
+				  xR = yR;
+				   }
+			  else{
+				 myCode2 = myCode2 + myLine2[xR] + "\n";
+			  }
+		  }
+		  
+		  String myCode3 = null;
+		  String[] myLine3 = myCode2.split("\\r?\\n");
+		  int pR = 0;
+		  int qR =0;
+		  
+		  
+		  for( pR = 0; pR < myLine3.length; pR++) {
+			  
+			  if(myLine3[pR].contains("switch ") && myLine3[pR].contains("{")) {
+				  myCode3 = myCode3 + myLine3[pR].replace("switch ", "XXXxx") + "\n";
+				  for(qR = pR + 1; qR < myLine3.length; qR++) { 
+					  if(myLine3[qR].contains("}")) {
+					    myCode3 = myCode3 + myLine3[qR].replace("}", "*") + "\n";
+									  //System.out.println(myCode);
+									  break;
+									 
+								  }
+					  else {
+						  myCode3 = myCode3 + myLine3[qR] + "\n";
+					  }
+							   
+						   }
+				  pR = qR;
+				   }
+			  else{
+				 myCode3 = myCode3 + myLine3[pR] + "\n";
+			  }
+		  }
+		  
+		  
+		  
+		  String myCode4 = null;
+		  String[] myLine4 = myCode3.split("\\r?\\n");
+		  int aR = 0;
+		  int bR =0;
+		  
+		  for( aR = 0; aR < myLine4.length; aR++) {
+			  
+			  if(myLine4[aR].contains("for") && myLine4[aR].contains("{")) {
+				  myCode4 = myCode4 + myLine4[aR].replace("for", "FFF") + "\n";
+				  for(bR = aR + 1; bR < myLine4.length; bR++) { 
+					  if(myLine4[bR].contains("}")) {
+					    myCode4 = myCode4 + myLine4[bR].replace("}", "*") + "\n";
+									  //System.out.println(myCode);
+									  break;
+									 
+								  }
+					  else {
+						  myCode4 = myCode4 + myLine4[bR] + "\n";
+					  }
+							   
+						   }
+				  aR = bR;
+				   }
+			  else{
+				 myCode4 = myCode4 + myLine4[aR] + "\n";
+			  }
+		  }
+		  
+		
+		  
+		  for(int i = 0; i < myCode4.length(); i++) {
+			  char c = myCode4.charAt(i);
+		  
+			  if(c == '}') {
+				  stackback.push(i);
+
+			  }
+		  }
+	//	  System.out.println(stackback.pop());
+		  ArrayList<Integer> reverseBackArray = new ArrayList<Integer>();
+		  int backLength = stackback.size();
+		  //System.out.println(stackback.size());
+		  for(int i = 0; i < backLength; i++) {
+			  reverseBackArray.add(stackback.pop());
+			  	//System.out.println(reverseBackArray.get(i));
+		  }
+		  for(int i = 0; i < reverseBackArray.size();i++) {
+			  stackback.push(reverseBackArray.get(i));
+		  }
+		
+		  
+		 
+		  
+		 
+		 
 			
-		// System.out.println(code.length());
+		  int l = code.length();
+		  String cusCode;
+		  int s = 0;
+		  
+		  int peekValue = 0;
+		  
+		  for(String line : lines) {
+		
+			  for(int i =0; i < stackback.size(); i++) {
+			  cusCode = myCode4.substring(peekValue,stackback.peek()-1).trim();
+			  cusCodeArray.add(cusCode);
+
+			  peekValue = stackback.pop();
+
+			  }
+			  }
+			 //System.out.println(lines.length);
+		   
+			  
+			  for(int i =0 ; i < cusCodeArray.size();i++) {
+				  String[] cusCodeLines = cusCodeArray.get(i).split("\\r?\\n");
+				  for(String cusCodeLine : cusCodeLines) {
+					  if(getMethod(cusCodeLine) == null) {
+						  if(!methodsStack.isEmpty()) {
+							  //System.out.println(methodsStack.peek());
+						  if(cusCodeLine.contains(methodsStack.peek())) {
+						      score[s] = 1 ;
+						      s++;
+						      RECURSIVEMETHODARRAY.add(methodsStack.peek());
+						      //System.out.println(cusCodeLine);
+							  
+						  }
+						  else {
+							  score[s] = 0;
+							  s++;
+						  }}
+			  
+			  }else {
+				  score[s] = 0;
+				  s++;
+			  }
+			  
+			  }
+				  if(!methodsStack.isEmpty()) {
+				  methodsStack.pop();
+			  } }
+			   
+		  
+			return score;
+		
+		}
+	
+	 public int[] checkRecursiveCallWithReguralerMethod(String code) {
+		 
+			//System.out.println(wNr);
+			String[] lines = code.split("\\r?\\n");
+			int[] score = new int[lines.length];
+			//System.out.println(score.length);
+			Stack<String> methodsStack = new Stack<String>();
+			Stack<Integer> stackback = new Stack<Integer>();
+			ArrayList<String> reverseMethodArray = new ArrayList<String>();
+			String method ;  
+			ArrayList<String> cusCodeArray = new ArrayList<String>();
+			
+		 for(String line: lines) {
+				  if(getMethod(line) != null) {
+					  methodsStack.push(getMethod(line));
+				  }
+			  }	
+		 
+		 
+		  int methodLength = methodsStack.size();
+		  
+		  //System.out.println(stackback.size());
+		  for(int i = 0; i < methodLength; i++) {
+			  	reverseMethodArray.add(methodsStack.pop());
+			  	//System.out.println(reverseArray.get(i));
+		 }
+		  for(int i = 0; i < reverseMethodArray.size();i++) {
+			  methodsStack.push(reverseMethodArray.get(i));
+		  }
+
 		 String myCode0 = null;
 		 for(int i = 0; i < lines.length; i++) {
 			 
@@ -325,12 +587,7 @@ public class Coupling {
 		  }
 		  for(int i = 0; i < reverseBackArray.size();i++) {
 			  stackback.push(reverseBackArray.get(i));
-		  }
-		
-		  
-		 
-		  
-		 
+		  } 
 		 
 			
 		  int l = code.length();
@@ -370,11 +627,12 @@ public class Coupling {
 						  if(!methodsStack.isEmpty()) {
 							  //System.out.println(methodsStack.peek());
 						  if(cusCodeLine.contains(methodsStack.peek())) {
-						      score[s] = 1 ;
-						      s++;
+							  score[s] = 1;						 
 						      //System.out.println(cusCodeLine);
-							  
-						  }
+							  s++;
+						  } 
+						  
+						 
 						  else {
 							  score[s] = 0;
 							  s++;
@@ -390,57 +648,11 @@ public class Coupling {
 				  methodsStack.pop();
 			  } }
 			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-//			  String [] cusLines = cusCode.split("\\r?\\n");
-//			// System.out.println(cusLines.length);
-//			 for(String cusLine : cusLines) {
-//				
-//			//System.out.println(cusLine);
-//					 
-//				
-//					 
-//						  if(getMethod(cusLine) != null) {
-//								 method = getMethod(cusLine);
-//								 //System.out.println(method);
-//								 score[s] = 0;
-//								 s++;
-//							 }
-//						  else if(!methodsStack.isEmpty()) {
-//							     if(cusLine.contains(methodsStack.peek())) {
-//								 methodsStack.pop();
-//								 score[s] = 1;
-//								 s++;
-//								 }
-//							     
-//						  }
-//						  else {
-//							  
-//							  score[s] = 0;
-//							  s++;
-//						  }
-//					 }
-//					
-//				
-//			  
-//			 
-//			 } 
-//			 //System.out.println(">>>>>>>>>>");
-//			 }
-//		  }  
-//		 
-//	  
-//		  	
 		  
 			return score;
-//			
+		
 		}
+
 	 
 	
 	public boolean isRecursive() {
@@ -499,6 +711,11 @@ public class Coupling {
 
           return methodsArray;
       }
+	  
+	  
+	  
+	  
+	  
  public boolean checkRegularMethod(String statment) {
 		  
 	 	 
@@ -684,6 +901,597 @@ public class Coupling {
 	 
  }
  
+ public int[] checkRegularCallToRegunalCall() {
+	 String [] lines = code.split("\\r?\\n");
+	 int[] score = new int[lines.length];
+	 int[] recursiveScores = checkRecursive(code);
+	 int[] regularScore = isRegular();
+	 int s =0;
+	
+	 
+	 for(int i =0 ; i < lines.length; i++) {
+		 if(regularScore[i] == 1) {
+			 if(recursiveScores[i] == 1) {
+				 score[s] = 0;
+				 s++;
+			 }else {
+				 score[s] = 1;
+				 s++;
+			 }
+		 }
+		 else {
+			 score[s] = 0;
+			 s++;
+		 }
+	 }
+	 return score;
+ }
+ 
+ public int[] checkRegularCallToRecursiveCall() {
+	 String [] lines = code.split("\\r?\\n");
+	 int[] score = new int[lines.length];
+	 
+	 
+	 Stack<String> methodsStack = new Stack<String>();
+		Stack<Integer> stackback = new Stack<Integer>();
+		ArrayList<String> reverseMethodArray = new ArrayList<String>();
+		String method ;  
+		ArrayList<String> cusCodeArray = new ArrayList<String>();
+		
+	 for(String line: lines) {
+			  if(getMethod(line) != null) {
+				  methodsStack.push(getMethod(line));
+			  }
+		  }	
+	 
+	 
+	  int methodLength = methodsStack.size();
+	  
+	  //System.out.println(stackback.size());
+	  for(int i = 0; i < methodLength; i++) {
+		  	reverseMethodArray.add(methodsStack.pop());
+		  	//System.out.println(reverseArray.get(i));
+	 }
+	  for(int i = 0; i < reverseMethodArray.size();i++) {
+		  methodsStack.push(reverseMethodArray.get(i));
+	  }
+//	
+	 String myCode0 = null;
+	 for(int i = 0; i < lines.length; i++) {
+		 
+		 if((lines[i].contains("String")|| lines[i].contains("int")) && (lines[i].contains("[") && lines[i].contains("{"))) {
+			 if (getMethod(lines[i]) == null) {
+			 myCode0 = myCode0 + lines[i].replace(lines[i], "THIS IS A ARRAY") + "\n";
+			 }
+			 else {
+			 myCode0 = myCode0 + lines[i] +"\n";
+			 }
+		 }
+		 else {
+			 myCode0 = myCode0 + lines[i] +"\n";
+					
+		 }
+	 }
+	 // System.out.println(myCode0);
+	  
+	  
+	  String myCode1 = null;
+	  String[] myLine1 = myCode0.split("\\r?\\n");
+	  int iR = 0;
+	  int jR =0;
+	  int kR = 0;
+	  
+	  for( iR = 0; iR < myLine1.length; iR++) {
+		  
+		  if(myLine1[iR].contains("if ") && myLine1[iR].contains("{")) {
+			  myCode1 = myCode1 + myLine1[iR].replace("if ", "ep") + "\n";
+			  for(jR = iR + 1; jR < myLine1.length; jR++) { 
+				  if(myLine1[jR].contains("if ") && myLine1[jR].contains("{")) {
+					  myCode1 = myCode1 + myLine1[jR].replace("if ", "epa") + "\n";
+					  for(kR = jR + 1; kR < myLine1.length; kR++) {
+						  if(myLine1[kR].contains("}")) {
+							  myCode1 = myCode1 + myLine1[kR].replace("}", "*") + "\n";
+							  //System.out.println(myCode);
+							  break;
+						  }
+						  else {
+							  myCode1 = myCode1 + myLine1[kR] + "\n";
+						  }
+					  }
+					  jR = kR;
+					  
+					  
+				  }
+				  else if(myLine1[jR].contains("}")) {
+				    myCode1 = myCode1 + myLine1[jR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode1 = myCode1 + myLine1[jR] + "\n";
+				  }
+						   
+					   }
+			  iR = jR;
+			   }
+		  else{
+			 myCode1 = myCode1 + myLine1[iR] + "\n";
+		  }
+	  }
+	  
+	  String myCode2 = null;
+	  String[] myLine2 = myCode1.split("\\r?\\n");
+	  int xR = 0;
+	  int yR =0;
+	  
+	  
+	  for( xR = 0; xR < myLine2.length; xR++) {
+		  
+		  if(myLine2[xR].contains("else ") && myLine2[xR].contains("{")) {
+			  myCode2 = myCode2 + myLine2[xR].replace("else ", "ZZZz") + "\n";
+			  for(yR = xR + 1; yR < myLine2.length; yR++) { 
+				  if(myLine2[yR].contains("}")) {
+				    myCode2 = myCode2 + myLine2[yR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode2 = myCode2 + myLine2[yR] + "\n";
+				  }
+						   
+					   }
+			  xR = yR;
+			   }
+		  else{
+			 myCode2 = myCode2 + myLine2[xR] + "\n";
+		  }
+	  }
+	  
+	  String myCode3 = null;
+	  String[] myLine3 = myCode2.split("\\r?\\n");
+	  int pR = 0;
+	  int qR =0;
+	  
+	  
+	  for( pR = 0; pR < myLine3.length; pR++) {
+		  
+		  if(myLine3[pR].contains("switch ") && myLine3[pR].contains("{")) {
+			  myCode3 = myCode3 + myLine3[pR].replace("switch ", "XXXxx") + "\n";
+			  for(qR = pR + 1; qR < myLine3.length; qR++) { 
+				  if(myLine3[qR].contains("}")) {
+				    myCode3 = myCode3 + myLine3[qR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode3 = myCode3 + myLine3[qR] + "\n";
+				  }
+						   
+					   }
+			  pR = qR;
+			   }
+		  else{
+			 myCode3 = myCode3 + myLine3[pR] + "\n";
+		  }
+	  }
+	  
+	  
+	  
+	  String myCode4 = null;
+	  String[] myLine4 = myCode3.split("\\r?\\n");
+	  int aR = 0;
+	  int bR =0;
+	  
+	  for( aR = 0; aR < myLine4.length; aR++) {
+		  
+		  if(myLine4[aR].contains("for") && myLine4[aR].contains("{")) {
+			  myCode4 = myCode4 + myLine4[aR].replace("for", "FFF") + "\n";
+			  for(bR = aR + 1; bR < myLine4.length; bR++) { 
+				  if(myLine4[bR].contains("}")) {
+				    myCode4 = myCode4 + myLine4[bR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode4 = myCode4 + myLine4[bR] + "\n";
+				  }
+						   
+					   }
+			  aR = bR;
+			   }
+		  else{
+			 myCode4 = myCode4 + myLine4[aR] + "\n";
+		  }
+	  }
+	  
+
+	  
+	  for(int i = 0; i < myCode4.length(); i++) {
+		  char c = myCode4.charAt(i);
+	  
+		  if(c == '}') {
+			  stackback.push(i);
+//			
+		  }
+	  }
+//	  System.out.println(stackback.pop());
+	  ArrayList<Integer> reverseBackArray = new ArrayList<Integer>();
+	  int backLength = stackback.size();
+	  //System.out.println(stackback.size());
+	  for(int i = 0; i < backLength; i++) {
+		  reverseBackArray.add(stackback.pop());
+		  	//System.out.println(reverseBackArray.get(i));
+	  }
+	  for(int i = 0; i < reverseBackArray.size();i++) {
+		  stackback.push(reverseBackArray.get(i));
+	  } 
+	 
+		
+	 
+	  String cusCode;
+	  int s = 0;
+	  
+	  int peekValue = 0;
+	  String myMethod = null;
+	  
+	  for(String line : lines) {
+	  
+		  for(int i =0; i < stackback.size(); i++) {
+		  cusCode = myCode4.substring(peekValue,stackback.peek()-1).trim();
+		  cusCodeArray.add(cusCode);
+		  
+		  peekValue = stackback.pop();//		 
+		  }
+		  }
+	  
+	  for(int i =0 ; i < cusCodeArray.size(); i++) {
+		  String[] cusCodeLines = cusCodeArray.get(i).split("\\r?\\n");
+		  for(String line : cusCodeLines) {
+		  if(checkRegularMethod(line)) {
+			  Status = true;
+			  break;
+		  }
+		  else {
+			  Status = false;
+		  }
+		  }
+		  if(Status) {
+			  for(String line : cusCodeLines) {
+				if(getMethod(line) != null) {
+					myMethod = getMethod(line);
+					 score[s] = 0;
+					 s++;
+				}
+				else {
+			  for(int k = 0; k < RECURSIVEMETHODARRAY.size(); k++) {
+					 if(line.contains(RECURSIVEMETHODARRAY.get(k))) {
+						if(line.contains(myMethod)) {
+							score[s] = 0;;
+						}else {
+						 score[s] = 1;						
+						 break;
+						 
+					 }}
+					 else {
+						 score[s] = 0;
+						 
+					 }
+					
+				 }
+			  s++;
+				} }
+		  }else {
+			  for(String line : cusCodeLines) {
+					 
+						 score[s] = 0;
+//						 s++;
+			  }
+		  }
+	  }
+	  
+	 
+	 
+	 return score;
+ }
+
+ public int[] checkRecursiveCallToRegularCall() {
+	 
+	 checkAllMethods();
+	 String [] lines = code.split("\\r?\\n");
+	 int[] score = new int[lines.length];
+	 
+	 
+	 Stack<String> methodsStack = new Stack<String>();
+		Stack<Integer> stackback = new Stack<Integer>();
+		ArrayList<String> reverseMethodArray = new ArrayList<String>();
+		String method ;  
+		ArrayList<String> cusCodeArray = new ArrayList<String>();
+		
+	 for(String line: lines) {
+			  if(getMethod(line) != null) {
+				  methodsStack.push(getMethod(line));
+			  }
+		  }	
+	 
+	 
+	  int methodLength = methodsStack.size();
+	  
+	  //System.out.println(stackback.size());
+	  for(int i = 0; i < methodLength; i++) {
+		  	reverseMethodArray.add(methodsStack.pop());
+		  	//System.out.println(reverseArray.get(i));
+	 }
+	  for(int i = 0; i < reverseMethodArray.size();i++) {
+		  methodsStack.push(reverseMethodArray.get(i));
+	  }
+//	
+	 String myCode0 = null;
+	 for(int i = 0; i < lines.length; i++) {
+		 
+		 if((lines[i].contains("String")|| lines[i].contains("int")) && (lines[i].contains("[") && lines[i].contains("{"))) {
+			 if (getMethod(lines[i]) == null) {
+			 myCode0 = myCode0 + lines[i].replace(lines[i], "THIS IS A ARRAY") + "\n";
+			 }
+			 else {
+			 myCode0 = myCode0 + lines[i] +"\n";
+			 }
+		 }
+		 else {
+			 myCode0 = myCode0 + lines[i] +"\n";
+					
+		 }
+	 }
+	 // System.out.println(myCode0);
+	  
+	  
+	  String myCode1 = null;
+	  String[] myLine1 = myCode0.split("\\r?\\n");
+	  int iR = 0;
+	  int jR =0;
+	  int kR = 0;
+	  
+	  for( iR = 0; iR < myLine1.length; iR++) {
+		  
+		  if(myLine1[iR].contains("if ") && myLine1[iR].contains("{")) {
+			  myCode1 = myCode1 + myLine1[iR].replace("if ", "ep") + "\n";
+			  for(jR = iR + 1; jR < myLine1.length; jR++) { 
+				  if(myLine1[jR].contains("if ") && myLine1[jR].contains("{")) {
+					  myCode1 = myCode1 + myLine1[jR].replace("if ", "epa") + "\n";
+					  for(kR = jR + 1; kR < myLine1.length; kR++) {
+						  if(myLine1[kR].contains("}")) {
+							  myCode1 = myCode1 + myLine1[kR].replace("}", "*") + "\n";
+							  //System.out.println(myCode);
+							  break;
+						  }
+						  else {
+							  myCode1 = myCode1 + myLine1[kR] + "\n";
+						  }
+					  }
+					  jR = kR;
+					  
+					  
+				  }
+				  else if(myLine1[jR].contains("}")) {
+				    myCode1 = myCode1 + myLine1[jR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode1 = myCode1 + myLine1[jR] + "\n";
+				  }
+						   
+					   }
+			  iR = jR;
+			   }
+		  else{
+			 myCode1 = myCode1 + myLine1[iR] + "\n";
+		  }
+	  }
+	  
+	  String myCode2 = null;
+	  String[] myLine2 = myCode1.split("\\r?\\n");
+	  int xR = 0;
+	  int yR =0;
+	  
+	  
+	  for( xR = 0; xR < myLine2.length; xR++) {
+		  
+		  if(myLine2[xR].contains("else ") && myLine2[xR].contains("{")) {
+			  myCode2 = myCode2 + myLine2[xR].replace("else ", "ZZZz") + "\n";
+			  for(yR = xR + 1; yR < myLine2.length; yR++) { 
+				  if(myLine2[yR].contains("}")) {
+				    myCode2 = myCode2 + myLine2[yR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode2 = myCode2 + myLine2[yR] + "\n";
+				  }
+						   
+					   }
+			  xR = yR;
+			   }
+		  else{
+			 myCode2 = myCode2 + myLine2[xR] + "\n";
+		  }
+	  }
+	  
+	  String myCode3 = null;
+	  String[] myLine3 = myCode2.split("\\r?\\n");
+	  int pR = 0;
+	  int qR =0;
+	  
+	  
+	  for( pR = 0; pR < myLine3.length; pR++) {
+		  
+		  if(myLine3[pR].contains("switch ") && myLine3[pR].contains("{")) {
+			  myCode3 = myCode3 + myLine3[pR].replace("switch ", "XXXxx") + "\n";
+			  for(qR = pR + 1; qR < myLine3.length; qR++) { 
+				  if(myLine3[qR].contains("}")) {
+				    myCode3 = myCode3 + myLine3[qR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode3 = myCode3 + myLine3[qR] + "\n";
+				  }
+						   
+					   }
+			  pR = qR;
+			   }
+		  else{
+			 myCode3 = myCode3 + myLine3[pR] + "\n";
+		  }
+	  }
+	  
+	  
+	  
+	  String myCode4 = null;
+	  String[] myLine4 = myCode3.split("\\r?\\n");
+	  int aR = 0;
+	  int bR =0;
+	  
+	  for( aR = 0; aR < myLine4.length; aR++) {
+		  
+		  if(myLine4[aR].contains("for") && myLine4[aR].contains("{")) {
+			  myCode4 = myCode4 + myLine4[aR].replace("for", "FFF") + "\n";
+			  for(bR = aR + 1; bR < myLine4.length; bR++) { 
+				  if(myLine4[bR].contains("}")) {
+				    myCode4 = myCode4 + myLine4[bR].replace("}", "*") + "\n";
+								  //System.out.println(myCode);
+								  break;
+								 
+							  }
+				  else {
+					  myCode4 = myCode4 + myLine4[bR] + "\n";
+				  }
+						   
+					   }
+			  aR = bR;
+			   }
+		  else{
+			 myCode4 = myCode4 + myLine4[aR] + "\n";
+		  }
+	  }
+	  
+
+	  
+	  for(int i = 0; i < myCode4.length(); i++) {
+		  char c = myCode4.charAt(i);
+	  
+		  if(c == '}') {
+			  stackback.push(i);
+//			
+		  }
+	  }
+//	  System.out.println(stackback.pop());
+	  ArrayList<Integer> reverseBackArray = new ArrayList<Integer>();
+	  int backLength = stackback.size();
+	  //System.out.println(stackback.size());
+	  for(int i = 0; i < backLength; i++) {
+		  reverseBackArray.add(stackback.pop());
+		  	//System.out.println(reverseBackArray.get(i));
+	  }
+	  for(int i = 0; i < reverseBackArray.size();i++) {
+		  stackback.push(reverseBackArray.get(i));
+	  } 
+	 
+		
+	 
+	  String cusCode;
+	  int s = 0;
+	  
+	  int peekValue = 0;
+	  String myMethod = null;
+	  
+	  for(String line : lines) {
+	  
+		  for(int i =0; i < stackback.size(); i++) {
+		  cusCode = myCode4.substring(peekValue,stackback.peek()-1).trim();
+		  cusCodeArray.add(cusCode);
+		  
+		  peekValue = stackback.pop();//		 
+		  }
+		  }
+	  
+	  for(int i =0 ; i < cusCodeArray.size();i++) {
+		  String[] cusCodeLines = cusCodeArray.get(i).split("\\r?\\n");
+		  for(String cusCodeLine : cusCodeLines) {
+			  if(getMethod(cusCodeLine) == null) {
+				  if(!methodsStack.isEmpty()) {
+					  //System.out.println(methodsStack.peek());
+				  if(cusCodeLine.contains(methodsStack.peek())) {
+				      methodsStack.pop();
+					  Status = true;
+				     break;
+				      //System.out.println(cusCodeLine);
+					  
+				  }
+				  else {
+					  Status = false;
+					 
+				  }}
+	  
+	  }else {
+		  Status = false;
+		  //break;
+	  }
+		  }
+	  
+		  if(Status) {
+			  
+			 
+		  for(String myline : cusCodeLines) {			 
+			  for(int k = 0; k < AlLMETHODARRAY.size(); k++) {
+				  if(myline.contains(AlLMETHODARRAY.get(k))) {					  
+					if(myline.contains(methodsStack.peek())) {
+						score[s] =0;	
+					}
+					else if(getMethod(myline) != null) {
+						score[s] =0;
+					}
+					else {
+					  score[s] = 1;
+					break;
+					} 
+				  }
+				  else {
+					  score[s] =0;	  
+					  
+					  
+				  }
+			  }
+			  s++;
+			  
+		  }
+	  }
+	  else {
+		  for(String myline : cusCodeLines) {	
+			  score[s]=0;
+			 // s++;
+		  }  
+	  }
+		  
+		  
+		  if(!methodsStack.isEmpty()) {
+		  methodsStack.pop();
+		  }
+	   }
+	  
+	 
+	 
+	 return score;
+ }
+
+ 
+ 
  public boolean isGlobleVariable(String statment) {
 	 
 	 String myStatement = statment;
@@ -700,7 +1508,7 @@ public class Coupling {
 		 if(getMethod(tline)!= null) {
 			 
 		 }
-		 else if((tline.contains("private") || tline.contains("public")) && (tline.contains("int") || tline.contains("String") 
+		 else if((tline.contains("private") || tline.contains("public") || tline.contains("static"))  && (tline.contains("int") || tline.contains("String") 
 				 || tline.contains("char") || tline.contains("double") || tline.contains("Dimension"))) {
 			 	
 			 if(tline.contains("=")) {
@@ -716,7 +1524,7 @@ public class Coupling {
 				 String[] vars = tline.split(",");
 				 for(String var : vars) {
 					 String tvar = var.trim();
-					 if(tvar.contains("private") || tvar.contains("public")) {
+					 if(tvar.contains("private") || tvar.contains("public") ||tvar.contains("static")) {
 						 String[] myvar = tvar.split(" ");
 						 variableArray.add(myvar[2]);
 						 
@@ -780,7 +1588,7 @@ public int[] checkGloblevariable() {
 		 if(getMethod(tline)!= null) {
 			 
 		 }
-		 else if((tline.contains("private") || tline.contains("public")) && (tline.contains("int") || tline.contains("String") 
+		 else if((tline.contains("private") || tline.contains("public") || tline.contains("static")) && (tline.contains("int") || tline.contains("String") 
 				 || tline.contains("char") || tline.contains("double") || tline.contains("Dimension"))) {
 			 	
 			 if(tline.contains("=")) {
@@ -796,7 +1604,7 @@ public int[] checkGloblevariable() {
 				 String[] vars = tline.split(",");
 				 for(String var : vars) {
 					 String tvar = var.trim();
-					 if(tvar.contains("private") || tvar.contains("public")) {
+					 if(tvar.contains("private") || tvar.contains("public") || tvar.contains("static")) {
 						 String[] myvar = tvar.split(" ");
 						 variableArray.add(myvar[2]);
 						 
@@ -842,19 +1650,17 @@ public int[] checkGloblevariable() {
 		String tline = line.trim();
 		
 		if(isGlobleVariable(tline)) {
-			if(tline.contains("public") || tline.contains("private")) {
+			if(tline.contains("public") || tline.contains("private") || tline.contains("static")) {
 				score[s] = 0;
 				s++;
 			}
 			else {
 			String [] myWords = tline.split(";|\\.|\\(|\\,|\\ ");
 			for(String  myWord : myWords) {
-			//System.out.println(myWord);
+			
 				
 			for(int i = 0; i < variableArray.size(); i++) {
-				if(myWord.equals(variableArray.get(i))) {
-//					System.out.println(myWord);
-//					System.out.println("ccccccccccccc");
+				if(myWord.equals(variableArray.get(i))) {				
 					score[s] = score[s] + 1 ;
 				}
 			}}
@@ -871,165 +1677,88 @@ public int[] checkGloblevariable() {
 }
  
  
- 
-	  //ArrayList<String> xline = new ArrayList<String>();
 	  
-	  //System.out.println(twordArray.get(1));
-//		 
-//	  for(String line : lines) {
-//		  String tline = line.trim();
-//		  //System.out.println(twordArray.peek());
-//		  //System.out.println(s.toString());
-//		  
-//		  String s = twordArray.peek();
-//		  	if(tline.contains)) {
-//		  		System.out.println(tline);
-//		  	}
-//		  	twordArray.pop(); 
-//		  	System.out.println("hiiiiiiiiiiiiiiiiiiiii");
-//		  	
-//	  }
-//	  
-	 // System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
-	  
-//		  for(String line: lines) {
-//			  if(getMethod(line) != null) {
-//				  methodsArray.add(getMethod(line));
-//			  }
-//		  }
-//		  String braket = code;
-//
-//		  braket = braket.substring(braket.indexOf("{") + 1);
-//		  braket = braket.substring(0, braket.indexOf("}"));
-//
-//		  //System.out.println(braket);	
-//		  
-//		  String [] cuswords = braket.split(" ");
-//		 // System.out.println(">>>>>>>>>>>>>>>" +methodsArray.get(0));
-//		  
-//		  for(String word : cuswords) {
-//			  String tword = word.trim();
-//			  
-//			  if (tword.contains("("))
-//              {
-//				  //System.out.println(tword);
-//                   cusmethod = tword.substring(0, tword.indexOf("(") + 1);
-//                   //System.out.println(cusmethod);
-//                 
-//               
-//			 
-//                  if(methodsArray.contains(cusmethod)) {
-//                	  System.out.println(cusmethod);
-//                  }
-//                  else {
-//                	  System.out.println("not");
-//                  }
-//              }
-//		  
-//		  }
-//	  }	  
-//			
-		  
-//		  	for(int j = 0; j < methodsArray.size(); j++) {
-//		  	System.out.println(methodsArray.get(j));
-//		  	}
-//		  	}
-//		  		for(String line : lines) {
-//				  if(getMethod(line) != null) {
-//					  
-//				  }
-//			  }
-		  
-//       		 for(String cusLine : cusLines) {
-//       			 
-//       			 
-//       			if(cusLine.contains("public") || cusLine.contains("private") || cusLine.contains("void")) {
-//       				if(getMethod(cusLine) != null) {
-//       					method = getMethod(cusLine);
-//       				}
-//       				
-//       			}
-//       		 }
-//	  }
-//  }
-//	  }
 	    
-	 public void getmethods(String code) {
-		  String[] lines = code.split("\\r?\\n");
-		  String[] words = null;
-		  for (String line : lines) {
-			  
-		  }
-	 }
-	 
+	
 	 public String  getTable() {
-//		 String d = getCode();
-//		 System.out.println(">>>>>>>>>>>"+d);
-//		String[] lines = d.split("\\r?\\n");	
-		 
-		 //int weight = wc.getwNr();
+	 
 		 String test = "";
 		 String[] lines = displayCode();
-		 int[] recursiveScores = checkRecursive(code);
-		 int[] regularScore = isRegular();
-		 int[] globleVariable = checkGloblevariable();
+		 int[] recursiveScores = checkRecursive(code);		
+		 int[] globleVariable = checkGloblevariable();		
+		 int[] regularToRegular = checkRegularCallToRegunalCall();
+		 int[] recursiveToregular = checkRecursiveCallToRegularCall();
+		 int[] regularToRecursive = checkRegularCallToRecursiveCall();
+		 
 		 int totRecursiveScores = 0;
 		 int totRegularScore = 0;
 		 int totGlobleVariable = 0;
+		 int totRegularToRecursive = 0;
+		 int totRecursiveToRegular = 0;
+		
+		 int total = 0;
 		 
-		 
+		
 		 
 		 
 		 
 		 
 		String output = "";
 		output = "<table class= 'table table-hover' border='1'>"
-				+ "<tr><th bgcolor= '#839192 '>Code Lines</th><th bgcolor= '#839192' >Nr</th><th bgcolor= '#839192'  >Nmcms</th><th bgcolor= '#839192' >Nmcmd</th>"
+				+ "<tr><th bgcolor= '#839192 '>Line NO.</th><th bgcolor= '#839192 '>Code Lines</th><th bgcolor= '#839192' >Nr</th><th bgcolor= '#839192'  >Nmcms</th><th bgcolor= '#839192' >Nmcmd</th>"
 				+ "<th bgcolor= '#839192' >Nmcrms</th><th bgcolor= '#839192' >Nmcrmd</th><th bgcolor= '#839192' >Nrmcrms</th>"
 				+ "<th bgcolor= '#839192' >Nrmcrmd </th><th bgcolor= '#839192' >Nrmcms </th><th bgcolor= '#839192' >Nrmcmd </th>"
 				+ "<th bgcolor= '#839192 '>Nmrgvs </th><th bgcolor= '#839192' >Nmrgvd </th><th bgcolor= '#839192' >Nrmrgvs </th><th bgcolor= '#839192' >Nrmrgvd  </th> </th><th bgcolor= '#839192' >Cpp</th></tr>";
 		int i = 0;
+		int k = 1;
 		int j = lines.length;
 		while(j > 0) {
 			
-			totRecursiveScores = totRecursiveScores + recursiveScores[i];
-			totRegularScore = totRegularScore + regularScore[i];
+			totRecursiveScores = totRecursiveScores + recursiveScores[i] ;
+			totRegularScore = totRegularScore + regularToRegular[i];
 			totGlobleVariable = totGlobleVariable + globleVariable[i];
+			totRegularToRecursive = totRegularToRecursive + regularToRecursive[i];
+			totRecursiveToRegular = totRecursiveToRegular + recursiveToregular[i];
 			
-			output += "<tr><td>" + lines[i] + "</td>";
+			
+			output += "<tr><th>" + k++ + "</th>";
+			output += "<td>" + lines[i] + "</td>";
 			output += "<td>" + recursiveScores[i] + "</td>";
-			output += "<td>" + regularScore[i] + "</td>";
+			output += "<td>" + regularToRegular[i] + "</td>";
+			output += "<td>" + test + "</td>";
+			output += "<td>" + regularToRecursive[i] + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
+			output += "<td>" + recursiveToregular[i] + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + globleVariable[i] + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + test + "</td>";
-			output += "<td>" + (recursiveScores[i] * wNr + regularScore[i] *wNmcms + globleVariable[i] * wNmrgvs) + "</td> </tr>";
+			output += "<td>" + (recursiveScores[i] * wNr + regularToRecursive[i] * wNmcrms + recursiveToregular[i] * wNrmcms  +regularToRegular[i] *wNmcms + globleVariable[i] * wNmrgvs) + "</td> </tr>";
 			i++;
 			j--;
 		}
 		
-		output += "<tr><th bgcolor= '#FDEDEC '>" +"TOTAL"+"</th>";
+		total = totRecursiveScores * wNr + totRegularScore *wNmcms + totRegularToRecursive * wNmcrms + totGlobleVariable* wNmrgvs + totRecursiveToRegular* wNrmcms;
+		
+		output += "<tr><th bgcolor= '#FDEDEC '></th>";
+		output += "<th bgcolor= '#FDEDEC '>" +"TOTAL"+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totRecursiveScores+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totRegularScore+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totRegularToRecursive+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totRecursiveToRegular+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totGlobleVariable+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th></tr>";
+		output += "<th bgcolor= '#FDEDEC '>" +total+"</th></tr>";
 		output += "</table>"; 
 		
 		return output;
@@ -1038,14 +1767,17 @@ public int[] checkGloblevariable() {
 		String[] lines = displayCode();
 		int[] ccp = new int [lines.length];	
 		int[] recursiveScores = checkRecursive(code);
-		int[] regularScore = isRegular();
+		int[] regularToRegular = checkRegularCallToRegunalCall();
+		int[] regularToRecursive = checkRegularCallToRecursiveCall();
+		int[] recursiveToregular = checkRecursiveCallToRegularCall();
 		int[] globleVariable = checkGloblevariable();
 		
 		int i = 0;
 		int j = lines.length;
 		
 		while(j > 0) {
-			ccp[i] = recursiveScores[i] + regularScore[i]   + globleVariable[i];
+			ccp[i] = recursiveScores[i]* wNr + regularToRegular[i] *wNmcms  +  regularToRecursive[i]*wNmcrms + recursiveToregular[i]*wNrmcms + globleVariable[i]*wNmrgvs;
+			
 			//System.out.println(ccp[i]);
 			i++;
 			j--;
@@ -1059,16 +1791,22 @@ public int[] checkGloblevariable() {
 		int[] tot = new int[13];
 		String[] lines = displayCode();
 		int[] recursiveScores = checkRecursive(code);
-		int[] regularScore = isRegular();
+		int[] regularToRegular = checkRegularCallToRegunalCall();
+		int[] regularToRecursive = checkRegularCallToRecursiveCall();
+		int[] recursiveToregular = checkRecursiveCallToRegularCall();
 		int[] globleVariable = checkGloblevariable();
 		int totRecursiveScores = 0;
 		int totRegularScore = 0;
+		int totRegularToRecursive = 0;
+		int totRecursiveToregular = 0;
 		int totGlobleVariable = 0;
 		int i = 0;
 		int j = lines.length;
 		while(j > 0) {
 			totRecursiveScores = totRecursiveScores + recursiveScores[i];
-			totRegularScore = totRegularScore + regularScore[i];
+			totRegularScore = totRegularScore + regularToRegular[i];
+			totRegularToRecursive = totRegularToRecursive + regularToRecursive[i];
+			totRecursiveToregular = totRecursiveToregular + recursiveToregular[i];
 			totGlobleVariable = totGlobleVariable + globleVariable[i];
 			
 			i++;
@@ -1077,11 +1815,11 @@ public int[] checkGloblevariable() {
 		tot[0] = totRecursiveScores;
 		tot[1] = totRegularScore;
 		tot[2] = 0;
-		tot[3] = 0;
+		tot[3] = totRegularToRecursive;
 		tot[4] = 0;
 		tot[5] = 0;
 		tot[6] = 0;
-		tot[7] = 0;
+		tot[7] = totRecursiveToregular;
 		tot[8] = 0;
 		tot[9] = totGlobleVariable;
 		tot[10] = 0;
