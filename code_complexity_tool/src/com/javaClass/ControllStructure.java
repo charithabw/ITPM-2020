@@ -480,7 +480,7 @@ public class ControllStructure {
 //			 int[] ccspps = new int[]{0,8,10,12,0,0,12,0,0,12,0,0,12,0,0,0,0,10,0,0,0,0};
 
 		String output = "";
-		output = "<table border=\"1\">" + "<tr><th>Code Lines</th><th>Wtcs</th><th>NC</th><th>Ccspps</th><th>Ccs</th>";
+		output = "<table class= 'table table-hover' border=\"1\">" + "<tr><th>Code Lines</th><th>Wtcs</th><th>NC</th><th>Ccspps</th><th>Ccs</th>";
 
 		int i = 0;
 		int j = lines.length;

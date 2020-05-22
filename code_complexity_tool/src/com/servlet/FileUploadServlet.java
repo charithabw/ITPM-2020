@@ -61,47 +61,7 @@ public class FileUploadServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-//		String testCode = "";
-//		FileUpload fu = new FileUpload();
-//		String button = request.getParameter("button");
-//		String code = fu.getCode("F:\\charitha\\ITMP project\\New Text Document (2).txt");
-//		System.out.println(button);
-//		request.setAttribute("tb", code);
-//		
-//		request.getRequestDispatcher("fileUpload.jsp").forward(request, response);
-//		
-		
-//		for(int i = 0 ; i < filePaths.size(); i++) {
-//		if(button.equals( filePaths.get(i))) {
-//			File file = new File(filePaths.get(i));
-//				if(file.exists()) {
-//					try {
-//						FileReader fr = new FileReader(file);
-//						
-//						try {
-//							BufferedReader br = new BufferedReader(fr);
-//							String line;
-//							
-//							while((line = br.readLine()) != null) {
-//								testCode = testCode + line + "\n"; 						
-//							}
-//						} catch (IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					} catch (Exception e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
 //				
-//		}
-//		}
-//
-//		request.setAttribute("tb", testCode);
-//		
-//		request.getRequestDispatcher("fileUpload.jsp").forward(request, response);
-		
 		
 		
 	}
