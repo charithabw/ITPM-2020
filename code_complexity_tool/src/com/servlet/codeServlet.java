@@ -190,14 +190,14 @@ public class codeServlet extends HttpServlet {
 		}
 		if(button.equals("ControlStructure")) {
 			
-			ControllStructure controllStructure = new ControllStructure();
-			controllStructure.setCode(code);
+//			ControllStructure controllStructure = new ControllStructure();
+//			controllStructure.setCode(code);
+//			
+//			String tb = controllStructure.getTable();
+//			
+//			request.setAttribute("tb", tb);
 			
-			String tb = controllStructure.getTable();
-			
-			request.setAttribute("tb", tb);
-			
-			request.getRequestDispatcher("controll_structures.jsp").forward(request, response);
+			request.getRequestDispatcher("WeightControlStructure.jsp").forward(request, response);
 		}
 		
 		
