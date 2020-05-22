@@ -1,3 +1,5 @@
+//Weerasooriya W.M.C.B.
+//IT18166316
 package com.javaClass;
 
 import java.io.BufferedReader;
@@ -42,6 +44,7 @@ public class Coupling {
 	
 	private String code ;
 	 boolean recursive;
+	 //set the ceode 
 	public void setCode(String code) {
 		this.code = code;
 		
@@ -54,7 +57,7 @@ public class Coupling {
 	public String[] displayCode() {
 		
 	
-		 String[] lines = getCode().split("\\r?\\n");
+		 String[] lines = getCode().split("\\r?\\n");//cut the code line by lines
 	        for(String line : lines) {
 	        	String tLine = line.trim();
 	        	//return (tLine);
@@ -63,7 +66,7 @@ public class Coupling {
 	     
 		return lines;
 	}
-	
+	//set the weight in weight table
 	public void weights(int wNr,int wNmcms,int wNmcmd,int wNmcrms,int wNmcrmd,int wNrmcrms,int wNrmcrmd,int wNrmcms,int wNrmcmd,int wNmrgvs,int wNmrgvd,int wNrmrgvs,int wNrmrgvd) {
 		this.wNr = wNr;
 		this.wNmcms = wNmcms;
@@ -81,7 +84,7 @@ public class Coupling {
 	}
 //	
 	
-	
+	//checking methods
 	 public String getMethod(String statement)
      {
 		
@@ -106,7 +109,7 @@ public class Coupling {
 
          return method;
      }
-	 
+	 //add all methods to a array
 	 public void checkAllMethods() {
 		 String[] lines = code.split("\\r?\\n");
 				for(String line : lines) {
@@ -116,7 +119,7 @@ public class Coupling {
 		}
 	 }
 	 
-	 
+	 //checking recursive methods
 	 public int[] checkRecursive(String code) {
 		 
 			//System.out.println(wNr);
@@ -128,7 +131,7 @@ public class Coupling {
 			ArrayList<String> reverseMethodArray = new ArrayList<String>();
 			String method ;  
 			ArrayList<String> cusCodeArray = new ArrayList<String>();
-			
+		//add all methods to a stack	
 		 for(String line: lines) {
 				  if(getMethod(line) != null) {
 					  methodsStack.push(getMethod(line));
@@ -139,17 +142,22 @@ public class Coupling {
 		  int methodLength = methodsStack.size();
 		  
 		  //System.out.println(stackback.size());
+		  
+		  //change the position of the stack using array
 		  for(int i = 0; i < methodLength; i++) {
 			  	reverseMethodArray.add(methodsStack.pop());
 			  	//System.out.println(reverseArray.get(i));
 		 }
+		  //re-push to the stack
 		  for(int i = 0; i < reverseMethodArray.size();i++) {
 			  methodsStack.push(reverseMethodArray.get(i));
 		  }
 		 
+		  //custarmaize the code
+		  //for get the method's scopes
 		 String myCode0 = null;
 		 for(int i = 0; i < lines.length; i++) {
-			 
+			 //check array
 			 if((lines[i].contains("String")|| lines[i].contains("int")) && (lines[i].contains("[") && lines[i].contains("{"))) {
 				 if (getMethod(lines[i]) == null) {
 				 myCode0 = myCode0 + lines[i].replace(lines[i], "THIS IS A ARRAY") + "\n";
@@ -173,7 +181,7 @@ public class Coupling {
 		  int kR = 0;
 		  
 		  for( iR = 0; iR < myLine1.length; iR++) {
-			  
+			  //check the '}' and replace
 			  if(myLine1[iR].contains("if ") && myLine1[iR].contains("{")) {
 				  myCode1 = myCode1 + myLine1[iR].replace("if ", "ep") + "\n";
 				  for(jR = iR + 1; jR < myLine1.length; jR++) { 
@@ -303,12 +311,15 @@ public class Coupling {
 		  
 		  for(int i = 0; i < myCode4.length(); i++) {
 			  char c = myCode4.charAt(i);
-		  
+		  //check '}' for get the method scope
 			  if(c == '}') {
+				  //add all '}' to a array
 				  stackback.push(i);
 
 			  }
 		  }
+		  
+		  //re arrange the sctak
 	//	  System.out.println(stackback.pop());
 		  ArrayList<Integer> reverseBackArray = new ArrayList<Integer>();
 		  int backLength = stackback.size();
@@ -316,25 +327,22 @@ public class Coupling {
 		  for(int i = 0; i < backLength; i++) {
 			  reverseBackArray.add(stackback.pop());
 			  	//System.out.println(reverseBackArray.get(i));
-		  }
+		  }		 
 		  for(int i = 0; i < reverseBackArray.size();i++) {
 			  stackback.push(reverseBackArray.get(i));
-		  }
-		
-		  
-		 
-		  
+		  }		  
 		 
 		 
 			
-		  int l = code.length();
+		 
 		  String cusCode;
 		  int s = 0;
 		  
 		  int peekValue = 0;
 		  
+		  //read line by line 
 		  for(String line : lines) {
-		
+			  //get the method scope to aarray
 			  for(int i =0; i < stackback.size(); i++) {
 			  cusCode = myCode4.substring(peekValue,stackback.peek()-1).trim();
 			  cusCodeArray.add(cusCode);
@@ -378,7 +386,7 @@ public class Coupling {
 			return score;
 		
 		}
-	
+	//check recursive call with regular method
 	 public int[] checkRecursiveCallWithReguralerMethod(String code) {
 		 
 			//System.out.println(wNr);
@@ -715,7 +723,7 @@ public class Coupling {
 	  
 	  
 	  
-	  
+//check regular methods	  
  public boolean checkRegularMethod(String statment) {
 		  
 	 	 
@@ -779,15 +787,7 @@ public class Coupling {
 		  methodsArray.add(reverseMethodArray.get(i));
 	  }
 //
-//		 System.out.println(methodsStack.pop());
-//		 System.out.println(methodsStack.pop());
-		 
-//			for(int j = 0; j < methodsArray.size(); j++) {
-//			  	System.out.println(methodsArray.get(j));
-//			}
-//			System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-		  
-		 // System.out.println(code.length());
+//		
 		  for(int i = 0; i < code.length(); i++) {
 			  char c = code.charAt(i);
 		  
@@ -879,7 +879,7 @@ public class Coupling {
 		 }}
 		  return regular;
  }
- 
+ //assing the values to regular method
  public int[] isRegular() {
 	 String [] lines = code.split("\\r?\\n");
 	 int[] score = new int[lines.length];
@@ -900,7 +900,7 @@ public class Coupling {
 	 return score;
 	 
  }
- 
+ //check regular call to regular call
  public int[] checkRegularCallToRegunalCall() {
 	 String [] lines = code.split("\\r?\\n");
 	 int[] score = new int[lines.length];
@@ -926,7 +926,7 @@ public class Coupling {
 	 }
 	 return score;
  }
- 
+ //check regular call to recursive call
  public int[] checkRegularCallToRecursiveCall() {
 	 String [] lines = code.split("\\r?\\n");
 	 int[] score = new int[lines.length];
@@ -1197,7 +1197,7 @@ public class Coupling {
 	 
 	 return score;
  }
-
+//check recursive call to regular call
  public int[] checkRecursiveCallToRegularCall() {
 	 
 	 checkAllMethods();
@@ -1491,7 +1491,7 @@ public class Coupling {
  }
 
  
- 
+ //check global variable
  public boolean isGlobleVariable(String statment) {
 	 
 	 String myStatement = statment;
@@ -1508,9 +1508,10 @@ public class Coupling {
 		 if(getMethod(tline)!= null) {
 			 
 		 }
+		 //check global variable's key word
 		 else if((tline.contains("private") || tline.contains("public") || tline.contains("static"))  && (tline.contains("int") || tline.contains("String") 
 				 || tline.contains("char") || tline.contains("double") || tline.contains("Dimension"))) {
-			 	
+			 //separate global variabe and add to a array	
 			 if(tline.contains("=")) {
 				 String[] vars = tline.split("=");
 				 for(String var : vars) {
@@ -1572,7 +1573,7 @@ public class Coupling {
 	 return variable;
 	 
  }
- 
+ //add score to the globle variable
 public int[] checkGloblevariable() {
 	
 	
@@ -1679,7 +1680,7 @@ public int[] checkGloblevariable() {
  
 	  
 	    
-	
+//build the table view	
 	 public String  getTable() {
 	 
 		 String test = "";
@@ -1763,7 +1764,8 @@ public int[] checkGloblevariable() {
 		
 		return output;
 	}
-	public int[] getccpValue() {
+	//return the ccp value to build the all factor table
+	 public int[] getccpValue() {
 		String[] lines = displayCode();
 		int[] ccp = new int [lines.length];	
 		int[] recursiveScores = checkRecursive(code);
@@ -1786,7 +1788,7 @@ public int[] checkGloblevariable() {
 		
 		return ccp;
 	}
-	
+	//return the total values to build the barchart view
 	public int[] gettotalValue() {
 		int[] tot = new int[13];
 		String[] lines = displayCode();
