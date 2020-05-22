@@ -1,14 +1,21 @@
 package com.javaClass;
 
 import com.servlet.codeServlet;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 
 public class AllFactors {
 
 	private String code;	
 	int[] ccpValue ;
 	int[] ccsValue;
+	int[] csValue;
+	int[] cmValue;
+	int[] cvValue;
 	int totccpValue = 0;
 	int totccsValue = 0;
+	int totcsValue =0;
+	int totcmValue = 0;
+	int totcvValue = 0;
 
 	public void getCCPValue() {		
 		Coupling c = new Coupling();
@@ -26,6 +33,24 @@ public class AllFactors {
 		ccsValue = cnts.getccsValue();
 		
 	}
+	public void getCSValue() {
+		Size si = new Size();
+		si.setCode(code);
+		csValue = si.getcsValue();
+		
+	}
+	public void getCMValue() {
+		SizeVariable me = new SizeVariable();
+		me.setCode(code);
+		cmValue = me.getcmValue();
+		
+	}
+	public void getCVValue() {
+		variable va = new variable();
+		va.setCode(code);
+		cvValue = va.getcvValue();
+		
+	}
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -33,11 +58,17 @@ public class AllFactors {
 	public String gettable() {
 		getCCPValue();
 		getCCSValue();
+		getCSValue();
+		getCMValue();
+		getCVValue();
 		String output = "";
-		String test = "";
+		String test = "0";
 		String[] lines = code.split("\\r?\\n");
 		int totCCP = 0;
-		int totCCS = 0;
+		int totCCS = 0;		
+		int totCS = 0;
+		int totCM = 0;
+		int totCV = 0;
 		int total = 0;
 		
 		output = "<table class= 'table table-hover' border='1'>"
@@ -50,27 +81,30 @@ public class AllFactors {
 			
 			totCCP = totCCP + ccpValue[i];
 			totCCS = totCCS + ccsValue[i];
+			totCS = totCS + csValue[i];
+			totCM = totCM + cmValue[i];
+			totCV = totCV + cvValue[i];
 			
 			output += "<tr><th>" + k++ + "</th>";
 			output += "<td>" + lines[i] + "</td>";
-			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
-			output += "<td>" + test + "</td>";
+			output += "<td>" + csValue[i] + "</td>";
+			output += "<td>" + cvValue[i] + "</td>";
+			output += "<td>" + cmValue[i] + "</td>";
 			output += "<td>" + test + "</td>";
 			output += "<td>" + ccpValue[i] + "</td>";
 			output += "<td>" + ccsValue[i] + "</td>";
-			output += "<td>" + (ccpValue[i] + ccsValue[i]) + "</td></tr>";
+			output += "<td>" + (ccpValue[i] + ccsValue[i] + csValue[i] + cmValue[i] + cvValue[i]) + "</td></tr>";
 			i++;
 			j--;
 		}
 		
-		total = totCCP + totCCS;
+		total = totCCP + totCCS + totCS + totCM + totCV;
 		
 		output += "<tr><th bgcolor= '#FDEDEC '></th>";
 		output += "<th bgcolor= '#FDEDEC '>" +"TOTAL"+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
-		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totCS+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totCV+"</th>";
+		output += "<th bgcolor= '#FDEDEC '>" +totCM+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +test+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totCCP+"</th>";
 		output += "<th bgcolor= '#FDEDEC '>" +totCCS+"</th>";
@@ -101,21 +135,69 @@ public class AllFactors {
 			String[] lines = code.split("\\r?\\n");
 			int i = 0;
 			int j = lines.length;
-			while(j > 0) {
-				totccpValue = totccpValue + ccpValue[i];
+			while(j > 0) {				
 				totccsValue = totccsValue + ccsValue[i];
 				i++;
 				j--;
 			}
 		
 	}
+public void getTotCS() {
+			
+			Size si = new Size();
+			si.setCode(code);
+			csValue = si.getcsValue();
+			String[] lines = code.split("\\r?\\n");
+			int i = 0;
+			int j = lines.length;
+			while(j > 0) {
+				totcsValue = totcsValue + csValue[i];
+				i++;
+				j--;
+			}
+		
+	}
+public void getTotCM() {
+	
+	SizeVariable me = new SizeVariable();
+	me.setCode(code);
+	cmValue = me.getcmValue();
+	String[] lines = code.split("\\r?\\n");
+	int i = 0;
+	int j = lines.length;
+	while(j > 0) {
+		totcmValue = totcmValue + cmValue[i];
+		i++;
+		j--;
+	}
+
+}
+public void getTotCV() {
+	
+	variable va = new variable();
+	va.setCode(code);
+	cvValue = va.getcvValue();
+	String[] lines = code.split("\\r?\\n");
+	int i = 0;
+	int j = lines.length;
+	while(j > 0) {
+		totcvValue = totcvValue + cvValue[i];
+		i++;
+		j--;
+	}
+
+}
+	
 	public int[] gettotalValue() {
 		getTotCCP();
 		getTotCCS();
+		getTotCS();
+		getTotCM();
+		getTotCV();
 		int[] tot = new int[6];
-		tot[0] = 0;
-		tot[1] = 0;
-		tot[2] = 0;
+		tot[0] = totcsValue;
+		tot[1] = totcvValue;
+		tot[2] = totcmValue;
 		tot[3] = 0;
 		tot[4] = totccpValue;
 		tot[5] = totccsValue;		
